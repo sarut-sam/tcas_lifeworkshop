@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>LIFE Workbook v6 — Find Your Direction. Build Your Future.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B2A4A; --navy-dark:#141F38; --green:#2E7D5B; --gold:#D9A441; --slate:#3E5871;
+    --cream:#F4EFE4; --white:#FFFFFF; --grey:#6B6B6B; --border:#E4DDCB;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--cream); color:var(--navy);
+    font-family:'Inter',Arial,sans-serif; line-height:1.55; font-size:15px;
+    padding-bottom:82px; /* space for sticky footer nav */
+  }
+  h1,h2,h3,h4{font-family:'Poppins',Arial,sans-serif; margin:0;}
+  .script{font-family:'Caveat',cursive;}
+  a{color:var(--slate);}
+  .wrap{max-width:900px; margin:0 auto; padding:0 20px;}
+  button{font-family:'Inter',sans-serif;}
+
+  /* ===== TOP BAR ===== */
+  .topbar{position:sticky; top:0; z-index:60; background:var(--navy-dark); box-shadow:0 2px 10px rgba(0,0,0,0.15);}
+  .topbar-inner{max-width:900px; margin:0 auto; padding:10px 20px; display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .brand{display:flex; align-items:center; gap:8px; color:#fff; font-weight:800; font-family:'Poppins',sans-serif; font-size:15px; white-space:nowrap;}
+  .brand .dots{display:flex; gap:3px;}
+  .brand .dot{width:8px;height:8px;border-radius:50%;}
+  .topbar-actions{display:flex; gap:8px; align-items:center;}
+  .icon-link{
+    color:#CADCFC; text-decoration:none; font-size:12px; font-weight:600; padding:7px 10px;
+    border-radius:6px; border:1px solid rgba(255,255,255,0.2); white-space:nowrap;
+  }
+  .icon-link:hover{background:rgba(255,255,255,0.08);}
+  .print-btn{
+    background:var(--gold); color:var(--navy-dark); border:none; padding:8px 14px;
+    border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-wrap{background:#fff; border-bottom:1px solid var(--border); padding:12px 0;}
+  .progress-inner{max-width:900px; margin:0 auto; padding:0 20px;}
+  .progress-label{display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:var(--navy); margin-bottom:8px;}
+  .progress-track{height:8px; border-radius:5px; background:var(--border); overflow:hidden; margin-bottom:12px;}
+  .progress-fill{height:100%; background:var(--gold); width:0%; transition:width .35s;}
+  .step-dots{display:flex; justify-content:space-between; gap:4px;}
+  .step-dot{
+    flex:1; text-align:center; cursor:pointer; padding:4px 2px; border-radius:6px; user-select:none;
+  }
+  .step-dot .circ{
+    width:26px; height:26px; border-radius:50%; margin:0 auto 4px; display:flex; align-items:center; justify-content:center;
+    font-size:11px; font-weight:800; font-family:'Poppins',sans-serif; color:#fff; border:2px solid transparent; opacity:0.45;
+  }
+  .step-dot.current .circ{opacity:1; box-shadow:0 0 0 3px rgba(0,0,0,0.06);}
+  .step-dot.done .circ{opacity:1;}
+  .step-dot .lbl{font-size:9.5px; color:var(--grey); font-weight:600; display:block;}
+  .step-dot.current .lbl{color:var(--navy);}
+  @media (max-width:600px){ .step-dot .lbl{display:none;} .step-dot .circ{width:22px;height:22px;font-size:10px;} }
+
+  /* ===== PAGES ===== */
+  .page{display:none;}
+  .page.active{display:block;}
+  section.step{padding:36px 0 30px;}
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px; color:#fff; font-weight:700; font-size:12px;
+    padding:6px 14px; border-radius:20px; margin-bottom:14px; letter-spacing:0.5px;
+  }
+  .kicker-L{background:var(--navy);} .kicker-I{background:var(--green);} .kicker-F{background:var(--gold); color:var(--navy-dark) !important;}
+  .kicker-E{background:var(--slate);} .kicker-R{background:#7A4B8C;}
+  .icon-svg{flex-shrink:0; display:inline-block; vertical-align:middle;}
+  .sec-title{font-size:26px; font-weight:800; margin-bottom:6px;}
+  .sec-sub{color:var(--grey); font-style:italic; font-size:14px; margin-bottom:18px;}
+
+  .tips-box{
+    background:#FFFBF0; border:1.5px dashed var(--gold); border-radius:12px; padding:16px 18px;
+    margin-bottom:22px; font-size:13.5px;
+  }
+  .tips-box .tt{font-weight:800; color:#8a6a1f; margin-bottom:8px; display:flex; align-items:center; gap:6px; font-size:13px;}
+  .tips-box ul{margin:0; padding-left:18px;}
+  .tips-box li{margin-bottom:5px;}
+
+  .card{background:#fff; border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:16px;}
+  .card h3{font-size:16px; margin-bottom:12px;}
+  textarea, input[type=text]{
+    width:100%; border:1px solid var(--border); border-radius:8px; padding:10px 12px;
+    font-family:'Inter',sans-serif; font-size:14.5px; color:var(--navy); background:#FBF9F4;
+  }
+  textarea{resize:vertical; min-height:70px;}
+  label.field-label{display:block; font-weight:600; font-size:13px; margin:14px 0 6px; color:var(--navy);}
+  label.field-label:first-child{margin-top:0;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;}
+  @media (max-width:700px){ .grid2,.grid3{grid-template-columns:1fr;} }
+
+  /* RIASEC grid (div-based so it can reflow to 2 columns for print) */
+  .table-scroll{overflow-x:auto; border-radius:12px; border:1px solid var(--border);}
+  .riasec-grid{background:#fff; border:1px solid var(--border); border-radius:12px; overflow:hidden;}
+  .ri-row{
+    display:flex; align-items:center; gap:10px; padding:9px 14px; border-top:1px solid var(--border); font-size:13px;
+  }
+  .ri-row:first-child{border-top:none;}
+  .ri-row:hover{background:#FBF7EC;}
+  .ri-row .ri-text{flex:1;}
+  .letter-chip{
+    display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px;
+    border-radius:50%; color:#fff; font-weight:800; font-size:11px; font-family:'Poppins',sans-serif; flex-shrink:0;
+  }
+  .rowcheck{width:19px; height:19px; cursor:pointer; accent-color:var(--navy); flex-shrink:0;}
+
+  .score-panel{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px;}
+  .score-box{flex:1; min-width:96px; background:#fff; border:2px solid var(--border); border-radius:10px; text-align:center; padding:12px 6px;}
+  .score-box .n{font-size:22px; font-weight:800; font-family:'Poppins',sans-serif;}
+  .score-box .lbl{font-size:10px; color:var(--grey); margin-top:2px;}
+  .result-banner{
+    margin-top:18px; background:var(--navy); color:#fff; border-radius:12px; padding:18px 20px;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  }
+  .result-banner .rb-label{font-size:11.5px; color:#B9C6DA; margin-bottom:4px;}
+  .result-banner .rb-value{font-size:17px; font-weight:800; font-family:'Poppins',sans-serif;}
+  .result-banner a.jump{background:var(--gold); color:var(--navy-dark); padding:9px 14px; border-radius:8px; font-weight:700; font-size:12.5px; text-decoration:none; white-space:nowrap; cursor:pointer;}
+  .tie-detail{margin-top:12px; background:#fff; border:1.5px solid var(--gold); border-radius:12px; padding:14px 16px;}
+  .tie-detail-head{font-size:13px; font-weight:700; color:var(--navy); margin-bottom:10px;}
+  .tie-pair-row{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:8px 0; border-top:1px solid var(--border);}
+  .tie-pair-row:first-of-type{border-top:none;}
+  .tie-pair-code{font-weight:800; font-family:'Poppins',sans-serif; font-size:13px; color:var(--navy); min-width:70px;}
+  .tie-pair-group{flex:1; min-width:160px; font-size:12.5px;}
+  .tie-pair-row a.jump{background:var(--gold); color:var(--navy-dark); padding:5px 10px; border-radius:7px; font-weight:700; font-size:11px; text-decoration:none; white-space:nowrap; cursor:pointer;}
+  .tie-note{margin-top:10px; padding-top:10px; border-top:1px dashed var(--border); font-size:12px; color:var(--grey);}
+
+  /* Who am I card */
+  .idcard{
+    background:linear-gradient(135deg,#fff, #FBF7EC); border:2px solid var(--green); border-radius:16px;
+    padding:24px; max-width:520px; margin:0 auto;
+  }
+  .idcard .idtitle{text-align:center; font-weight:800; color:var(--green); letter-spacing:2px; font-size:12px; margin-bottom:6px;}
+  .idcard .idcode{text-align:center; font-size:34px; font-weight:800; font-family:'Poppins',sans-serif; color:var(--navy); margin-bottom:14px;}
+
+  /* Ikigai */
+  .ikigai-q{
+    background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:12px;
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+  }
+  .ikigai-q .qtext{flex:1; min-width:200px;}
+  .ikigai-q .qlens{font-weight:700; color:var(--gold); font-size:11.5px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;}
+  .toggle-group{display:flex; gap:8px;}
+  .toggle-btn{
+    padding:9px 18px; border-radius:20px; border:2px solid var(--border); background:#fff;
+    font-weight:700; font-size:13px; cursor:pointer; color:var(--grey); min-width:64px;
+  }
+  .toggle-btn.yes.active{background:var(--green); border-color:var(--green); color:#fff;}
+  .toggle-btn.no.active{background:#C6533F; border-color:#C6533F; color:#fff;}
+
+  /* Passport */
+  .passport-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px;}
+  .stamp-card{
+    background:#fff; border:2px dashed var(--border); border-radius:14px; padding:16px 10px; text-align:center;
+    cursor:pointer; transition:all .15s;
+  }
+  .stamp-card.stamped{border-style:solid; border-color:var(--gold); background:#FFFBF0;}
+  .stamp-circle{
+    width:50px; height:50px; border-radius:50%; margin:0 auto 8px; display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:17px; color:#fff; font-family:'Poppins',sans-serif; border:3px solid transparent;
+  }
+  .stamp-card.stamped .stamp-circle{border-color:var(--gold);}
+  .stamp-card .sname{font-weight:700; font-size:12.5px; margin-bottom:4px;}
+  .stamp-card .sstatus{font-size:10.5px; color:var(--grey);}
+  .stamp-card.stamped .sstatus{color:var(--gold); font-weight:700;}
+  .stamp-card a.factlink{font-size:10.5px; display:inline-block; margin-top:6px; cursor:pointer;}
+  #passportProgress{margin-top:20px; background:#fff; border:1px solid var(--border); border-radius:10px; padding:14px 16px;}
+  #passportBar{height:10px; border-radius:6px; background:var(--border); overflow:hidden; margin-top:8px;}
+  #passportBarFill{height:100%; background:var(--gold); width:0%; transition:width .3s;}
+
+  /* Vertical Roadmap */
+  .vtimeline{position:relative; padding-left:36px; margin-top:20px;}
+  .vtimeline::before{content:""; position:absolute; left:13px; top:6px; bottom:6px; width:3px; background:var(--border); border-radius:3px;}
+  .vt-item{position:relative; margin-bottom:22px;}
+  .vt-dot{
+    position:absolute; left:-36px; top:2px; width:28px; height:28px; border-radius:50%;
+    background:var(--slate); border:3px solid #fff; box-shadow:0 0 0 2px var(--slate);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .vt-item.future .vt-dot{background:#B8B0A0; box-shadow:0 0 0 2px #B8B0A0;}
+  .vt-card{background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px 18px;}
+  .vt-item.future .vt-card{background:#EDE8DC; color:var(--grey);}
+  .vt-date{font-weight:800; font-family:'Poppins',sans-serif; color:var(--slate); font-size:14px; margin-bottom:4px;}
+  .vt-item.future .vt-date{color:#948c7c;}
+  .vt-desc{font-size:13px; margin-bottom:10px;}
+  .vt-card textarea{min-height:50px; font-size:13px;}
+
+  /* Reference cards */
+  .fact-card{background:#fff; border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:18px; scroll-margin-top:170px;}
+  .fact-card .fc-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; flex-wrap:wrap; gap:10px;}
+  .fact-card .fc-name{color:#fff; padding:7px 14px; border-radius:8px; font-weight:700; font-size:14px;}
+  .fact-card .fc-riasec{border:2px solid; border-radius:8px; padding:5px 12px; font-weight:700; font-size:12px;}
+  .fact-card .fc-unis{font-size:11.5px; color:var(--grey); font-style:italic; margin-bottom:14px;}
+  .fact-card .fc-cols{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;}
+  .fact-card .fc-col h4{font-size:11.5px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:8px;}
+  .fact-card ul{margin:0; padding-left:16px; font-size:12px;}
+  .fact-card li{margin-bottom:6px;}
+  .fact-card .fc-sources{margin-top:12px; padding-top:10px; border-top:1px solid var(--border); font-size:11px; color:var(--grey);}
+  .fact-card .fc-sources a{color:var(--slate); display:inline-block; margin-right:8px;}
+  @media (max-width:700px){ .fact-card .fc-cols{grid-template-columns:1fr;} }
+
+  .maptable{width:100%; min-width:420px; border-collapse:collapse; margin-top:10px; background:#fff;}
+  .maptable th{background:var(--slate); color:#fff; padding:9px 10px; font-size:11.5px; text-align:left;}
+  .maptable td{padding:9px 10px; border-top:1px solid var(--border); font-size:12px;}
+
+  /* Myths & Reality Checks */
+  .myth-row{padding:12px 0; border-top:1px solid var(--border);}
+  .myth-row:first-child{border-top:none; padding-top:2px;}
+  .myth-label{display:inline-block; font-weight:800; font-size:10.5px; letter-spacing:0.5px; padding:2px 9px; border-radius:5px; margin-right:4px;}
+  .myth-label.myth{background:#F6DCD5; color:#96341F;}
+  .myth-label.reality{background:#D9EDE3; color:var(--green);}
+  .myth-text{font-size:13px; display:block; margin-top:4px;}
+  .myth-row .reality-line{margin-top:6px;}
+
+  /* Admission requirements snapshot inside fact cards */
+  .fc-admission{margin-top:14px; padding-top:14px; border-top:1px dashed var(--border);}
+  .fc-admission h4{font-size:11.5px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px;}
+  .fc-admission p{margin:0 0 6px; font-size:12px; line-height:1.5;}
+  .fc-admission .fc-admission-note{font-size:10.5px; color:var(--grey); font-style:italic; margin-top:6px;}
+
+  /* Welcome / Complete pages */
+  .hero-page{background:var(--navy-dark); color:#fff; text-align:center; padding:48px 20px; margin:-1px 0 0;}
+  .hero-page .liftmark{font-family:'Poppins',sans-serif; font-weight:800; font-size:56px; letter-spacing:6px; margin-bottom:6px;}
+  .hero-page .tag{color:var(--gold); font-weight:700; letter-spacing:1.5px; font-size:12.5px; text-transform:uppercase; margin-bottom:16px;}
+  .hero-page h1{font-size:24px; margin-bottom:8px;}
+  .hero-page .sub{color:#B9C6DA; font-size:14px; font-style:italic; margin-bottom:20px; max-width:520px; margin-left:auto; margin-right:auto;}
+  .hero-page .dotsrow{display:flex; justify-content:center; gap:14px; margin-bottom:22px;}
+  .hero-page .dotsrow .badge{
+    width:42px;height:42px;border-radius:50%; display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:800; font-family:'Poppins',sans-serif; font-size:16px;
+  }
+  .fillfield{border:none; background:transparent; border-bottom:1px dashed #7C89A3; color:#fff; text-align:center; font-family:'Inter',sans-serif; font-size:14px; padding:2px 6px;}
+  .fillfield::placeholder{color:#7C89A3;}
+  .start-btn{
+    margin-top:26px; background:var(--gold); color:var(--navy-dark); border:none; padding:14px 34px;
+    border-radius:30px; font-weight:800; font-size:15px; cursor:pointer;
+  }
+  .howitworks{max-width:520px; margin:22px auto 0; text-align:left; background:rgba(255,255,255,0.06); border-radius:12px; padding:16px 20px; font-size:13px;}
+  .howitworks li{margin-bottom:6px;}
+
+  /* Sticky footer nav */
+  .step-footer{
+    position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid var(--border);
+    padding:12px 20px; display:flex; justify-content:space-between; align-items:center; z-index:55;
+    box-shadow:0 -2px 10px rgba(0,0,0,0.06);
+  }
+  .step-footer .wrap{width:100%; max-width:900px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;}
+  .nav-btn{
+    border:none; border-radius:24px; padding:11px 22px; font-weight:700; font-size:13.5px; cursor:pointer;
+  }
+  .nav-btn.back{background:#EDE8DC; color:var(--navy);}
+  .nav-btn.next{background:var(--navy); color:#fff;}
+  .nav-btn:disabled{opacity:0.35; cursor:default;}
+  .step-count{font-size:12px; color:var(--grey); font-weight:600;}
+
+  @media (max-width:480px){
+    .hero-page .liftmark{font-size:40px; letter-spacing:3px;}
+    .sec-title{font-size:22px;}
+    .topbar-actions .icon-link span.txt{display:none;}
+  }
+
+  /* ===== PRINT ===== */
+  @page{ size:A4; margin:12mm; }
+  @media print{
+    body{padding-bottom:0; background:#fff; font-size:11.5px;}
+    .topbar, .progress-wrap, .step-footer, .no-print, .tips-box{display:none !important;}
+    /* Printed worksheet boxes should be genuinely blank, not show the on-screen example/hint text */
+    input::placeholder, textarea::placeholder{color:transparent !important; opacity:0 !important;}
+    #page-references{display:none !important;}
+    .page{display:block !important;}
+    section.step{page-break-after:always; padding:6px 0;}
+    .hero-page{background:#fff !important; color:var(--navy) !important; page-break-after:always; padding:20px;}
+    .hero-page .liftmark, .hero-page h1{color:var(--navy) !important;}
+    .fillfield{color:var(--navy); border-bottom:1px solid #999;}
+    a{color:var(--navy) !important; text-decoration:none;}
+    .card,.fact-card,.stamp-card,.vt-card{box-shadow:none !important;}
+    .wrap{max-width:100%;}
+    .sec-title{font-size:19px; margin-bottom:3px;}
+    .sec-sub{font-size:11px; margin-bottom:10px;}
+    .kicker{padding:4px 10px; font-size:10px; margin-bottom:8px;}
+
+    /* RIASEC: force 2 columns x 9 rows so all 18 statements + score + result fit one A4 page */
+    .riasec-grid{display:grid; grid-template-columns:1fr 1fr; grid-template-rows:repeat(9,auto); grid-auto-flow:column; column-gap:14px; border:1px solid #ccc;}
+    .ri-row{padding:3px 6px; font-size:8.3px; line-height:1.25; border-top:1px solid #ddd; gap:5px;}
+    .ri-row:nth-child(9n+1){border-top:none;}
+    .letter-chip{width:15px; height:15px; font-size:7.5px;}
+    .rowcheck{width:11px; height:11px;}
+    .score-panel{margin-top:6px; gap:4px;}
+    .score-box{padding:4px 2px; min-width:60px;}
+    .score-box .n{font-size:14px;}
+    .score-box .lbl{font-size:7px;}
+    .result-banner{margin-top:8px; padding:8px 12px; background:var(--navy) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .result-banner .rb-value{font-size:12px;}
+    .result-banner a.jump{display:none !important;}
+    /* Tied students' full candidate breakdown DOES print (accuracy over the 1-page guarantee) —
+       it may occasionally push a tied student's RIASEC page onto a 2nd sheet, which is an acceptable trade. */
+    .tie-detail{background:#fff; border:1px solid #ccc; margin-top:6px; padding:6px 8px;}
+    .tie-detail-head{font-size:9px; margin-bottom:4px;}
+    .tie-pair-row{padding:3px 0; font-size:8.5px;}
+    .tie-pair-code{font-size:9px; min-width:50px;}
+    .tie-pair-row a.jump{display:none !important;}
+    .tie-note{font-size:8px; margin-top:4px; padding-top:4px;}
+    .kicker,.badge,.stamp-circle,.fc-name,.letter-chip{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .kicker .icon-svg{width:11px !important; height:11px !important;}
+
+    /* Roadmap: tighten vertical spacing so 7 milestones fit one A4 page */
+    .vtimeline{padding-left:22px; margin-top:8px;}
+    .vtimeline::before{left:8px;}
+    .vt-item{margin-bottom:8px;}
+    .vt-dot{width:16px; height:16px; left:-22px; top:0;}
+    .vt-card{padding:6px 10px;}
+    .vt-date{font-size:10.5px; margin-bottom:1px;}
+    .vt-desc{font-size:9.5px; margin-bottom:4px;}
+    .vt-card textarea{min-height:22px; font-size:9px; padding:4px 6px;}
+  }
+
+  /* ===== V5 ADDITIONS ===== */
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 12px;}
+  .chip{border:1.5px solid var(--border); background:#fff; border-radius:16px; padding:4px 11px; font-size:12px; cursor:pointer; color:var(--navy); font-family:'Inter',sans-serif;}
+  .chip:hover{border-color:var(--gold); background:#FFFBF0;}
+  .chip.static{cursor:default;}
+  .chip.static:hover{border-color:var(--border); background:#fff;}
+  .chip-label{font-size:11.5px; font-weight:700; color:var(--grey); margin-top:10px;}
+  .stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:18px;}
+  .stat{background:#fff; border:2px solid var(--gold); border-radius:14px; padding:16px;}
+  .stat.green{border-color:var(--green);} .stat.slate{border-color:var(--slate);}
+  .stat .big{font-family:'Poppins',sans-serif; font-weight:800; font-size:34px; line-height:1.1;}
+  .stat .cap{font-size:12.5px; margin-top:4px;}
+  .rounds{display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+  .round-card{background:#fff; border:2px solid var(--border); border-radius:12px; padding:14px;}
+  .round-card .rtag{display:inline-block; color:#fff; font-weight:800; font-size:10.5px; padding:2px 10px; border-radius:12px; margin-bottom:6px;}
+  .round-card h4{font-size:14px; margin-bottom:4px;}
+  .round-card p{margin:0; font-size:12px;}
+  .compare{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .compare .card h3{display:inline-block; color:#fff; padding:5px 14px; border-radius:8px; font-size:13.5px;}
+  .compare ul{margin:0; padding-left:18px; font-size:13px;}
+  .compare li{margin-bottom:7px;}
+  @media (max-width:700px){ .stat-row,.rounds,.compare{grid-template-columns:1fr;} }
+  table.simple{width:100%; border-collapse:collapse; font-size:13px; background:#fff;}
+  table.simple th{background:var(--slate); color:#fff; padding:8px 10px; text-align:left; font-size:11.5px;}
+  table.simple td{padding:8px 10px; border-top:1px solid var(--border); vertical-align:top;}
+  .days-tag{display:inline-block; font-size:11px; font-weight:700; padding:2px 9px; border-radius:10px; background:#FFF3D6; color:#8a6a1f; white-space:nowrap;}
+  .days-tag.past{background:#EDE8DC; color:var(--grey);}
+  .opt-row{display:flex; flex-wrap:wrap; gap:8px 18px; margin:6px 0 14px;}
+  .opt-row label{display:flex; align-items:center; gap:7px; font-size:13.5px; cursor:pointer;}
+  .opt-row input{width:18px; height:18px; accent-color:var(--navy);}
+  select{border:1px solid var(--border); border-radius:8px; padding:7px 8px; font-family:'Inter',sans-serif; font-size:13.5px; background:#FBF9F4; color:var(--navy);}
+  .rate-group{display:flex; gap:6px; flex-wrap:wrap;}
+  .rate-btn{padding:8px 14px; border-radius:18px; border:2px solid var(--border); background:#fff; font-weight:700; font-size:12.5px; cursor:pointer; color:var(--grey);}
+  .rate-btn.active{background:var(--gold); border-color:var(--gold); color:var(--navy-dark);}
+  .rate-btn.maybe.active{background:var(--slate); border-color:var(--slate); color:#fff;}
+  .gap-col{border-top:5px solid var(--green);}
+  .gap-col.gold{border-top-color:var(--gold);} .gap-col.slate{border-top-color:var(--slate);}
+  .note-small{font-size:12px; color:var(--grey); font-style:italic;}
+  .commit-line{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-weight:700; font-size:15px;}
+  .commit-line input{flex:1; min-width:160px;}
+  .step-dot .lbl{font-size:9px;}
+  @media print{
+    .chips.nonprint{display:none !important;}
+    .stat .big{font-size:20px;} .stat{padding:8px;} .stat-row{gap:8px; margin-bottom:8px;}
+    .round-card{padding:6px;} .round-card p{font-size:9.5px;} .round-card h4{font-size:11px;}
+    .compare li{font-size:10px; margin-bottom:3px;} .compare .card{padding:10px;}
+    table.simple{font-size:9.5px;} table.simple td,table.simple th{padding:3px 6px;}
+    .days-tag{border:1px solid #ccc; background:#fff !important;}
+    .card{padding:10px; margin-bottom:8px;}
+    select{border:1px solid #999; background:#fff;}
+    .rate-btn,.chip{border:1px solid #999;}
+    .rate-btn.active{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+
+  .kicker-T{background:#7A4B8C;}
+  a.chip{text-decoration:none; display:inline-block;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="dots">
+        <span class="dot" style="background:var(--navy)"></span>
+        <span class="dot" style="background:var(--green)"></span>
+        <span class="dot" style="background:var(--gold)"></span>
+        <span class="dot" style="background:var(--slate)"></span>
+      </div>
+      LIFE Workbook
+    </div>
+    <div class="topbar-actions">
+      <a class="icon-link" href="#" id="refNavLink"><span class="ico" data-icon="book" data-icon-size="13"></span> <span class="txt">References</span></a>
+      <button class="print-btn no-print" onclick="printWorkbook()"><span class="ico" data-icon="printer" data-icon-size="13"></span> <span class="txt">Print</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="progress-wrap no-print" id="progressWrap">
+  <div class="progress-inner">
+    <div class="progress-label"><span id="progressText">Step 1 of 11</span><span id="progressPct">9%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="step-dots" id="stepDots"></div>
+  </div>
+</div>
+
+<!-- ============ WELCOME ============ -->
+<div class="page active" id="page-welcome">
+  <div class="hero-page">
+    <div class="liftmark">
+      <span style="color:#fff">L</span><span style="color:var(--green)">I</span><span style="color:var(--gold)">F</span><span style="color:var(--slate)">E</span>
+    </div>
+    <div class="tag">Find Your Direction. Build Your Future.</div>
+    <h1>My LIFE Workbook</h1>
+    <div class="sub">A personal, step-by-step workbook for the TCAS70 Career &amp; University Discovery Workshop</div>
+    <div class="dotsrow">
+      <div class="badge" style="background:var(--navy)"><span class="ico" data-icon="compass" data-icon-size="20"></span></div>
+      <div class="badge" style="background:var(--green)"><span class="ico" data-icon="idcard" data-icon-size="20"></span></div>
+      <div class="badge" style="background:var(--gold)"><span class="ico" data-icon="target" data-icon-size="20"></span></div>
+      <div class="badge" style="background:var(--slate)"><span class="ico" data-icon="rocket" data-icon-size="20"></span></div>
+    </div>
+    <div>
+      Name: <input class="fillfield" type="text" placeholder="Your name" style="width:180px;">
+      &nbsp;&nbsp; Date: <input class="fillfield" type="text" value="28 / 10 / 2026" style="width:120px;">
+    </div>
+    <div class="howitworks">
+      <b>How this works:</b>
+      <ul>
+        <li>9 workshop steps: Vision → RIASEC → Who Am I → TCAS Clock → Route Map → Career Expo → Ikigai → Portfolio → Roadmap</li>
+        <li>2 take-home steps: SAT Planner and Round 1 Planner</li>
+        <li>Your facilitator tells you when to move on. Back and Next are always available</li>
+        <li>Look for the <span class="ico" data-icon="bulb" data-icon-size="13"></span> Tips box at the top of each step</li>
+        <li>Print your finished workbook anytime with the button top-right</li>
+      </ul>
+    </div>
+    <button class="start-btn" onclick="goToStep(0)">Start My LIFE Workbook →</button>
+  </div>
+</div>
+
+<!-- ============ STEP 1: VISION (L) ============ -->
+<div class="page" data-step="0" id="page-vision">
+  <section class="step wrap">
+    <span class="kicker kicker-L"><span class="ico" data-icon="compass" data-icon-size="14"></span> L &nbsp;·&nbsp; LIFE</span>
+    <h2 class="sec-title">Vision Worksheet</h2>
+    <div class="sec-sub">What life do I want? Picture a normal Tuesday morning when you are 30.</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>Don't overthink it. Write whatever comes first. You can revise later.</li>
+        <li>Think about a normal day, not a highlight reel. Daily life matters more than big moments.</li>
+        <li>Stuck? Pick words from the examples, or cross out the ones that do NOT fit you.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>A Normal Day at 30</h3>
+      <label class="field-label">Where are you? Who is near you? What are you doing? How does the day feel?</label>
+      <textarea rows="4" placeholder="Write freely. There are no wrong answers here..."></textarea>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Three Words</h3>
+        <label class="field-label">Three words that describe the life you want:</label>
+        <input type="text" data-group="word" placeholder="Word 1" style="margin-bottom:10px;">
+        <input type="text" data-group="word" placeholder="Word 2" style="margin-bottom:10px;">
+        <input type="text" data-group="word" placeholder="Word 3">
+        <div class="chip-label nonprint-label">Examples (tap to add)</div>
+        <div class="chips nonprint" id="chips-word"></div>
+      </div>
+      <div class="card">
+        <h3>What Matters Most to Me</h3>
+        <label class="field-label">Rank these 1 (most important) to 5 (least important)</label>
+        <label class="field-label">Work / Career achievement <input type="text" class="fillfield" style="width:36px; display:inline-block; color:var(--navy); border-bottom:1px solid var(--border);" placeholder="#"></label>
+        <label class="field-label">Lifestyle / Free time <input type="text" class="fillfield" style="width:36px; display:inline-block; color:var(--navy); border-bottom:1px solid var(--border);" placeholder="#"></label>
+        <label class="field-label">Impact / Helping others <input type="text" class="fillfield" style="width:36px; display:inline-block; color:var(--navy); border-bottom:1px solid var(--border);" placeholder="#"></label>
+        <label class="field-label">Freedom / Independence <input type="text" class="fillfield" style="width:36px; display:inline-block; color:var(--navy); border-bottom:1px solid var(--border);" placeholder="#"></label>
+        <label class="field-label">Relationships / Family <input type="text" class="fillfield" style="width:36px; display:inline-block; color:var(--navy); border-bottom:1px solid var(--border);" placeholder="#"></label>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ STEP 2: RIASEC (I) ============ -->
+<div class="page" data-step="1" id="page-riasec">
+  <section class="step wrap">
+    <span class="kicker kicker-I"><span class="ico" data-icon="idcard" data-icon-size="14"></span> I &nbsp;·&nbsp; IDENTITY</span>
+    <h2 class="sec-title">RIASEC Quick Sort</h2>
+    <div class="sec-sub">Who am I? Tick every statement that sounds like you. Your live score appears below.</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>Answer based on what you enjoy, not what sounds impressive to others.</li>
+        <li>RIASEC shows interest, not ability.</li>
+        <li>A flat or tied score is normal. It means you are a blend of types. For a genuine 3-way tie, we show all candidate directions.</li>
+      </ul>
+    </div>
+
+    <div class="riasec-grid" id="riasecBody"></div>
+    <div class="score-panel" id="scorePanel"></div>
+    <div id="riasecResultWrap"></div>
+  </section>
+</div>
+
+<!-- ============ STEP 3: WHO AM I (I) ============ -->
+<div class="page" data-step="2" id="page-whoami">
+  <section class="step wrap">
+    <span class="kicker kicker-I"><span class="ico" data-icon="idcard" data-icon-size="14"></span> I &nbsp;·&nbsp; IDENTITY</span>
+    <h2 class="sec-title">"Who Am I" Card</h2>
+    <div class="sec-sub">Put what you have learned about yourself on one card. Then collect notes from classmates.</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>Tap a word in the word bank to add it to the next empty box, or write your own.</li>
+        <li>Ask a friend or parent what they think your strengths are. Others often notice what we do not.</li>
+        <li>"Evidence" can be small: a class project or a quiet moment counts as much as an award.</li>
+        <li>The card does not have to match your RIASEC code perfectly. It is about you, not a formula.</li>
+      </ul>
+    </div>
+
+    <div class="idcard">
+      <div class="idtitle"><span class="ico" data-icon="idcard" data-icon-size="13"></span> MY IDENTITY CARD</div>
+      <div class="idcode" id="idCardCode">— · —</div>
+      <label class="field-label">3 Strengths</label>
+      <input type="text" data-group="strength" placeholder="Strength 1" style="margin-bottom:8px;">
+      <input type="text" data-group="strength" placeholder="Strength 2" style="margin-bottom:8px;">
+      <input type="text" data-group="strength" placeholder="Strength 3">
+      <div class="chips nonprint" id="chips-strength"></div>
+      <label class="field-label">3 Interests</label>
+      <input type="text" data-group="interest" placeholder="Interest 1" style="margin-bottom:8px;">
+      <input type="text" data-group="interest" placeholder="Interest 2" style="margin-bottom:8px;">
+      <input type="text" data-group="interest" placeholder="Interest 3">
+      <div class="chips nonprint" id="chips-interest"></div>
+      <label class="field-label">3 Values That Matter Most</label>
+      <input type="text" data-group="value" placeholder="Value 1" style="margin-bottom:8px;">
+      <input type="text" data-group="value" placeholder="Value 2" style="margin-bottom:8px;">
+      <input type="text" data-group="value" placeholder="Value 3">
+      <div class="chips nonprint" id="chips-value"></div>
+      <label class="field-label">I am someone who ...</label>
+      <input type="text" placeholder="e.g., stays calm when others panic and likes explaining things">
+      <label class="field-label">Evidence: something I did that proves it</label>
+      <textarea rows="3" placeholder="A project, competition, story, or moment that shows this about me..."></textarea>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <h3>Gallery Walk: What My Classmates See</h3>
+      <label class="field-label">Write the "I see you as ..." notes you received (or stick them here)</label>
+      <input type="text" placeholder="Note 1" style="margin-bottom:8px;">
+      <input type="text" placeholder="Note 2" style="margin-bottom:8px;">
+      <input type="text" placeholder="Note 3">
+      <label class="field-label">Which note surprised me most?</label>
+      <input type="text">
+    </div>
+  </section>
+</div>
+
+<!-- ============ STEP 4: TCAS CLOCK (F) ============ -->
+<div class="page" data-step="3" id="page-clock">
+  <section class="step wrap">
+    <span class="kicker kicker-F"><span class="ico" data-icon="clock" data-icon-size="14"></span> F &nbsp;·&nbsp; FIT</span>
+    <h2 class="sec-title">The TCAS70 Clock</h2>
+    <div class="sec-sub" id="clockSub">Where are you on the timeline today?</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>The first stretch is short. The decisions you make this week set up everything after it.</li>
+        <li>The dates here come from third-party summaries of the official schedule. Check <a href="https://www.mytcas.com/" target="_blank">mytcas.com</a> before you act on any date.</li>
+        <li>Thai programs and International programs follow different routes. Read both columns below.</li>
+      </ul>
+    </div>
+
+    <div class="stat-row" id="clockStats"></div>
+
+    <div class="card">
+      <h3>Key Dates</h3>
+      <div class="table-scroll" style="border:none;">
+        <table class="simple">
+          <thead><tr><th>Date</th><th>What happens</th><th>From today</th></tr></thead>
+          <tbody id="datesBody"></tbody>
+        </table>
+      </div>
+      <div class="note-small" style="margin-top:8px;">Reported fee relief (HoneyKids Asia, April 2026): up to 7 exam subjects and up to 7 Round 3 choices are free. Confirm on myTCAS.</div>
+    </div>
+
+    <div class="card">
+      <h3>Four Rounds</h3>
+      <div class="rounds">
+        <div class="round-card"><span class="rtag" style="background:var(--green)">Round 1</span><h4>Portfolio</h4><p>Portfolio, documents and often an interview. Open since 15 Aug. Each university and program sets its own window. Results 10–11 Mar. See the Round 1 Planner.</p></div>
+        <div class="round-card"><span class="rtag" style="background:var(--slate)">Round 2</span><h4>Quota</h4><p>University-run quota admission. Criteria and dates are set by each program.</p></div>
+        <div class="round-card"><span class="rtag" style="background:var(--gold); color:var(--navy-dark)">Round 3</span><h4>Admission</h4><p>Central ranking with GPAX + TGAT/TPAT/A-Level. Apply 7–11 May.</p></div>
+        <div class="round-card"><span class="rtag" style="background:var(--navy)">Round 4</span><h4>Direct Admission</h4><p>University-run direct selection. 29 May–15 Jun.</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>The Exams</h3>
+      <div class="chips">
+        <span class="chip static"><b>TGAT</b>: general skills test. Most routes need it.</span>
+        <span class="chip static"><b>TPAT 1–5</b>: professional aptitude by field. TPAT1 = medicine.</span>
+        <span class="chip static"><b>A-Level</b>: subject exams. Subjects needed depend on the program.</span>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="card">
+        <h3 style="background:var(--green)">Thai program</h3>
+        <ul>
+          <li>Based on GPAX plus TGAT / TPAT / A-Level results</li>
+          <li>Each program sets its own minimum GPAX and exam weights</li>
+          <li>Round 3 ranks applicants centrally on those scores</li>
+          <li>Check: the program page on myTCAS for subjects and weights</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="background:var(--slate)">International program</h3>
+        <ul>
+          <li>Usually runs its own application, with its own deadlines</li>
+          <li>All the programs we reviewed in 2026 asked for an English test</li>
+          <li>Some also want a math test. Others weigh portfolio and interview more</li>
+          <li>Check: the university's own admission page and score bars</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note-small" style="margin-top:6px;">General structure only. Program-specific GPAX and exam weights are not listed here. Confirm each one on myTCAS.</div>
+  </section>
+</div>
+
+<!-- ============ STEP 5: ROUTE MAP (F) ============ -->
+<div class="page" data-step="4" id="page-route">
+  <section class="step wrap">
+    <span class="kicker kicker-F"><span class="ico" data-icon="map" data-icon-size="14"></span> F &nbsp;·&nbsp; FIT</span>
+    <h2 class="sec-title">My Route Map</h2>
+    <div class="sec-sub">Five boxes. Fill what you know and mark what you must check.</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>No target yet? Fill the Route Map for the top faculty group from your RIASEC result.</li>
+        <li>You can mark both Thai and International if you are undecided.</li>
+        <li>Use the last box for questions you must check on myTCAS. Your facilitator will follow up on the list.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>1. My Target Track</h3>
+      <div class="opt-row" id="routeTrack">
+        <label><input type="radio" name="track" value="thai"> Thai program</label>
+        <label><input type="radio" name="track" value="intl"> International program</label>
+        <label><input type="radio" name="track" value="both"> Both</label>
+        <label><input type="radio" name="track" value="unsure"> Not sure yet</label>
+      </div>
+      <label class="field-label">My target programs (up to 3)</label>
+      <input type="text" placeholder="Program 1" style="margin-bottom:8px;">
+      <input type="text" placeholder="Program 2" style="margin-bottom:8px;">
+      <input type="text" placeholder="Program 3">
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>2. Rounds I Will Use</h3>
+        <div class="opt-row">
+          <label><input type="checkbox" class="route-round"> Round 1 Portfolio</label>
+          <label><input type="checkbox" class="route-round"> Round 2 Quota</label>
+          <label><input type="checkbox" class="route-round"> Round 3 Admission</label>
+          <label><input type="checkbox" class="route-round"> Round 4 Direct</label>
+        </div>
+      </div>
+      <div class="card">
+        <h3>3. Exams I Must Register For</h3>
+        <div class="opt-row">
+          <label><input type="checkbox" class="route-exam"> TGAT</label>
+          <label><input type="checkbox" class="route-exam"> TPAT</label>
+          <label><input type="checkbox" class="route-exam"> A-Level</label>
+          <label><input type="checkbox" class="route-exam"> SAT (International)</label>
+        </div>
+        <label class="field-label">Which TPAT, A-Level subjects or SAT scores?</label>
+        <input type="text" placeholder="e.g., TPAT3, A-Level Math, SAT Math 600">
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>4. My GPAX Right Now</h3>
+        <input type="text" placeholder="e.g., 3.40">
+        <label class="field-label">First date that applies to me</label>
+        <input type="text" placeholder="e.g., 4 Nov: exam registration">
+        <label class="field-label">Round 1 close date for my program</label>
+        <input type="text" placeholder="Check the program page">
+      </div>
+      <div class="card">
+        <h3>5. I Must Check on myTCAS</h3>
+        <textarea rows="4" placeholder="Minimum GPAX? Which exams? Is Round 1 still open?"></textarea>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ STEP 6: CAREER EXPO / PASSPORT (F) ============ -->
+<div class="page" data-step="5" id="page-expo">
+  <section class="step wrap">
+    <span class="kicker kicker-F"><span class="ico" data-icon="passport" data-icon-size="14"></span> F &nbsp;·&nbsp; FIT</span>
+    <h2 class="sec-title">Career Expo Passport</h2>
+    <div class="sec-sub">Visit all 6 stations. Tap to stamp, note one fact, and score your interest.</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>At each station, read the card and discuss one question with your group.</li>
+        <li>Read the "Competition" column as closely as the "Careers" column. Both matter.</li>
+        <li>Stamping a station you are unsure about is fine. Collecting information is not committing.</li>
+      </ul>
+    </div>
+
+    <div class="passport-grid" id="passportGrid"></div>
+
+    <div id="passportProgress">
+      <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:700;">
+        <span>Stations visited</span><span id="passportCount">0 / 6</span>
+      </div>
+      <div id="passportBar"><div id="passportBarFill"></div></div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <h3>My Expo Notes</h3>
+      <div class="table-scroll" style="border:none;">
+        <table class="simple">
+          <thead><tr><th>Station</th><th>One fact I learned</th><th>Interest (1-5)</th></tr></thead>
+          <tbody id="expoNotesBody"></tbody>
+        </table>
+      </div>
+      <label class="field-label">My top 2 stations</label>
+      <div class="grid2"><input type="text" placeholder="Top 1"><input type="text" placeholder="Top 2"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ STEP 7: IKIGAI (F) ============ -->
+<div class="page" data-step="6" id="page-ikigai">
+  <section class="step wrap">
+    <span class="kicker kicker-F"><span class="ico" data-icon="target" data-icon-size="14"></span> F &nbsp;·&nbsp; FIT</span>
+    <h2 class="sec-title">Ikigai Quick Check</h2>
+    <div class="sec-sub">Test ONE career or program from the Expo against four lenses and one reality question.</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>A low score is useful data, not a failure.</li>
+        <li>Answer "World needs" with the Career Expo cards and the References page, not a guess.</li>
+        <li>If family expectations conflict with your answer, write both down. That is useful for a conversation.</li>
+        <li>This 4-lens version is a popular adaptation of "Ikigai" used in career coaching, not the original Japanese concept. Treat it as a practical check.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <label class="field-label">The career or program I am testing</label>
+      <input type="text" placeholder="e.g., Industrial design">
+    </div>
+
+    <div id="ikigaiQs"></div>
+
+    <div class="result-banner">
+      <div>
+        <div class="rb-label">Score</div>
+        <div class="rb-value" id="ikigaiCount">0 / 12</div>
+      </div>
+      <div>
+        <div class="rb-label">Lowest lens</div>
+        <div class="rb-value" id="ikigaiLowest">—</div>
+      </div>
+      <div>
+        <div class="rb-label">Interpretation</div>
+        <div class="rb-value" id="ikigaiResult">Rate all 4 lenses and the reality question</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <label class="field-label">One action that would raise my lowest score</label>
+      <textarea rows="2" placeholder="e.g., Retake a quiz in math, ask a designer how they got started..."></textarea>
+    </div>
+  </section>
+</div>
+
+<!-- ============ STEP 8: PORTFOLIO (F) ============ -->
+<div class="page" data-step="7" id="page-portfolio">
+  <section class="step wrap">
+    <span class="kicker kicker-F"><span class="ico" data-icon="pencil" data-icon-size="14"></span> F &nbsp;·&nbsp; FIT</span>
+    <h2 class="sec-title">My Portfolio Gap Map</h2>
+    <div class="sec-sub">One page, three columns. Be honest and specific. "Not yet" is a starting point.</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>Each university sets its own portfolio list. Check your program page, then map what you already have.</li>
+        <li>Common categories: academic results, projects or work samples, awards and certificates, leadership or volunteering, and a short statement of purpose.</li>
+        <li>TCASfolio and TCAS Verified are the portfolio tools to know about.</li>
+        <li>Evidence beats adjectives: a certificate, a photo, a project link.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Gate Check</h3>
+      <div class="opt-row"><label><input type="checkbox" id="gateCheck"> I checked whether Round 1 is still open for my target program (myTCAS or the program page)</label></div>
+      <label class="field-label">My target program</label>
+      <input type="text" placeholder="e.g., Industrial Design, KMITL">
+      <label class="field-label">What its portfolio must show</label>
+      <textarea rows="2" placeholder="From the program page..."></textarea>
+    </div>
+
+    <div class="grid3">
+      <div class="card gap-col"><h3>Have now</h3><div class="note-small">What I can already show</div>
+        <textarea rows="7" placeholder="e.g., grade records, a science fair certificate..."></textarea></div>
+      <div class="card gap-col gold"><h3>Can add by January</h3><div class="note-small">What I can build in about 10 weeks</div>
+        <textarea rows="7" placeholder="e.g., a 1-minute project video, a volunteer log..."></textarea></div>
+      <div class="card gap-col slate"><h3>Not yet</h3><div class="note-small">What is missing, and my plan B</div>
+        <textarea rows="7" placeholder="e.g., leadership role. Plan B: lead a small club project..."></textarea></div>
+    </div>
+
+    <div class="card">
+      <h3>Group Feedback</h3>
+      <label class="field-label">One strength my group saw</label>
+      <input type="text">
+      <label class="field-label">One gap my group saw</label>
+      <input type="text">
+      <label class="field-label">One next step my group suggested</label>
+      <input type="text">
+    </div>
+  </section>
+</div>
+
+<!-- ============ STEP 9: ROADMAP (E) ============ -->
+<div class="page" data-step="8" id="page-roadmap">
+  <section class="step wrap">
+    <span class="kicker kicker-E"><span class="ico" data-icon="rocket" data-icon-size="14"></span> E &nbsp;·&nbsp; EXPLORE</span>
+    <h2 class="sec-title">My Backward Roadmap</h2>
+    <div class="sec-sub">Start from the fixed dates, then work back to this week. Write one dated action per milestone you need.</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>One small, concrete action per milestone. "Study hard" is not an action. "Create my registration account by 3 Nov" is.</li>
+        <li>Set a phone reminder for each date. Do not rely on memory for registration deadlines.</li>
+        <li>Dates can shift. Double-check <a href="https://www.mytcas.com/" target="_blank">mytcas.com</a> close to each milestone.</li>
+      </ul>
+    </div>
+
+    <div class="vtimeline" id="timelineWrap"></div>
+
+    <div class="card" style="margin-top:18px;">
+      <h3>My 3 First Steps This Week</h3>
+      <div class="table-scroll" style="border:none;">
+        <table class="simple">
+          <thead><tr><th>Action (small enough for one sitting)</th><th>By when</th><th>Who can help</th></tr></thead>
+          <tbody>
+            <tr><td><input type="text" placeholder="Action 1"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text" placeholder="Action 2"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text" placeholder="Action 3"></td><td><input type="text"></td><td><input type="text"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>My Commitment</h3>
+      <div class="commit-line">By <input type="text" placeholder="date" style="max-width:150px;"> I will <input type="text" placeholder="my action"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ STEP 10: SAT PLANNER (take-home) ============ -->
+<div class="page" data-step="9" id="page-sat">
+  <section class="step wrap">
+    <span class="kicker kicker-T"><span class="ico" data-icon="book" data-icon-size="14"></span> TAKE-HOME &nbsp;·&nbsp; SAT</span>
+    <h2 class="sec-title">My SAT Planner</h2>
+    <div class="sec-sub">Mainly for International programs. Thai programs usually count GPAX, TGAT/TPAT and A-Level instead.</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>First find out whether your target program asks for SAT at all. Many accept other tests (IELTS, TOEFL, CU-AAT) as an option.</li>
+        <li>Work backward: the score must reach the university before ITS deadline, not just before the test date.</li>
+        <li>The cut-offs below come from 2026 (TCAS69) program pages. TCAS70 numbers may differ, so confirm on the program page.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>What the SAT Is</h3>
+      <ul style="margin:0; padding-left:18px; font-size:13.5px;">
+        <li>A digital test with two parts: <b>Math</b> and <b>Reading &amp; Writing</b> (called EBRW in many program pages).</li>
+        <li>Each part is scored 200–800, so the total is 400–1600.</li>
+        <li>Programs ask for it in different ways: a Math minimum, a Reading &amp; Writing minimum, or a combined total.</li>
+        <li>Always check which one your program uses.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Which Faculty Groups Ask for SAT? (2026 data)</h3>
+      <div class="table-scroll" style="border:none;">
+        <table class="simple">
+          <thead><tr><th>Faculty group</th><th>Programs asking SAT</th><th>Typical cut-offs we found</th></tr></thead>
+          <tbody id="satGroupBody"></tbody>
+        </table>
+      </div>
+      <div class="note-small" style="margin-top:8px;">Source: our 2026 TCAS69 Requirements Report (English/International-program track, 108 programs). In many programs SAT is one accepted option among several tests.</div>
+    </div>
+
+    <div class="card">
+      <h3>SAT Test Dates and Deadlines (College Board, 2026–27)</h3>
+      <div class="table-scroll" style="border:none;">
+        <table class="simple">
+          <thead><tr><th>Test date</th><th>Register by</th><th>Late registration by</th><th>Status today</th></tr></thead>
+          <tbody id="satDatesBody"></tbody>
+        </table>
+      </div>
+      <div class="note-small" style="margin-top:8px;">Late registration costs extra fees. Deadlines are 11:59 p.m. U.S. Eastern time. Test centres in Thailand and fees: check College Board. Scores: check the score release dates and how to send scores to a university.</div>
+      <div class="chips" style="margin-top:8px;">
+        <a class="chip" href="https://satsuite.collegeboard.org/sat/dates-deadlines" target="_blank">College Board: dates</a>
+        <a class="chip" href="https://satsuite.collegeboard.org/sat/registration/international-testing/policies" target="_blank">International testing</a>
+        <a class="chip" href="https://satsuite.collegeboard.org/scores/sending-sat-scores" target="_blank">Send scores</a>
+        <a class="chip" href="https://satsuite.collegeboard.org/practice" target="_blank">Official practice</a>
+        <a class="chip" href="https://satsuite.collegeboard.org/practice/khan-academy" target="_blank">Khan Academy</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>My SAT Plan</h3>
+      <label class="field-label">Does my target program ask for SAT? Which score (Math / Reading &amp; Writing / total)?</label>
+      <input type="text" placeholder="e.g., Math 600, total 1000 (check the program page)">
+      <div class="grid2">
+        <div>
+          <label class="field-label">My latest practice score (if any)</label>
+          <input type="text" placeholder="e.g., Math 540, R&amp;W 480">
+        </div>
+        <div>
+          <label class="field-label">My planned test date</label>
+          <select id="satPlanDate" style="width:100%;"><option value="">—</option></select>
+        </div>
+      </div>
+      <div id="satPlanInfo" class="note-small" style="margin:8px 0;"></div>
+      <label class="field-label">Backup if SAT does not work out (other accepted tests)</label>
+      <input type="text" placeholder="e.g., IELTS, TOEFL iBT, CU-AAT">
+      <div class="opt-row" style="margin-top:10px;">
+        <label><input type="checkbox"> I know how to send my scores to the university</label>
+        <label><input type="checkbox"> I checked the university's own deadline for scores</label>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ STEP 11: ROUND 1 PLANNER (take-home) ============ -->
+<div class="page" data-step="10" id="page-round1">
+  <section class="step wrap">
+    <span class="kicker kicker-T"><span class="ico" data-icon="map" data-icon-size="14"></span> TAKE-HOME &nbsp;·&nbsp; ROUND 1</span>
+    <h2 class="sec-title">My Round 1 Planner</h2>
+    <div class="sec-sub">Round 1 is the portfolio round. Each university and program sets its own window and rules.</div>
+
+    <div class="tips-box"><div class="tt"><span class="ico" data-icon="bulb" data-icon-size="14"></span> Tips for this step</div>
+      <ul>
+        <li>Round 1 windows are different for every program. Some have already closed and some open in January, so check each one.</li>
+        <li>Round 1 judges what you have DONE (documents, projects, activities) and often an interview. It is not only about exam scores.</li>
+        <li>Check the myTCAS rules on confirming a seat before you confirm one.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Round 1 at a Glance</h3>
+      <div class="table-scroll" style="border:none;">
+        <table class="simple">
+          <thead><tr><th>When</th><th>What</th><th>From today</th></tr></thead>
+          <tbody id="r1TimelineBody"></tbody>
+        </table>
+      </div>
+      <div class="note-small" style="margin-top:8px;">Example of why you must check each program: Kasetsart's international economics program ran Round 1 track 1.1 from 18 Sep to 14 Oct 2026 (closed) and opens track 1.2 from 4 Jan to 4 Feb 2027 (interviews in English). Source: that program's TCAS70 page.</div>
+    </div>
+
+    <div class="card">
+      <h3>What a Round 1 Portfolio Usually Includes</h3>
+      <ul style="margin:0; padding-left:18px; font-size:13.5px;">
+        <li>Personal profile and education, with transcript (and GPAX)</li>
+        <li>English scores, and test scores where required (for example SAT, TGAT, UCAT)</li>
+        <li>Skills, projects or research, activities, awards and certificates</li>
+        <li>A short statement of purpose; some programs also want a recommendation</li>
+        <li>Often an interview, sometimes in English</li>
+      </ul>
+      <div class="note-small" style="margin-top:8px;">In our 2026 data, many programs asked for a portfolio of up to about 10 A4 pages in Thai or English. Format and page limits differ by program. Use TCASfolio and TCAS Verified as your portfolio tools.</div>
+    </div>
+
+    <div class="card">
+      <h3>Round 1 by Faculty Group (2026 data)</h3>
+      <div class="table-scroll" style="border:none;">
+        <table class="simple">
+          <thead><tr><th>Faculty group</th><th>What we found</th></tr></thead>
+          <tbody id="r1GroupBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>My Round 1 Tracker (up to 3 programs)</h3>
+      <div id="r1Tracker"></div>
+    </div>
+
+    <div class="card">
+      <h3>My Round 1 Checklist</h3>
+      <div class="note-small">Tick only the items that apply to your program.</div>
+      <div class="opt-row" style="flex-direction:column; align-items:flex-start;">
+        <label><input type="checkbox" class="r1-check"> Created my TCASfolio account</label>
+        <label><input type="checkbox" class="r1-check"> Checked TCAS Verified for my documents</label>
+        <label><input type="checkbox" class="r1-check"> Collected my transcript and GPAX</label>
+        <label><input type="checkbox" class="r1-check"> Listed my projects, activities and awards, with proof (photo, certificate, link)</label>
+        <label><input type="checkbox" class="r1-check"> Drafted my statement of purpose</label>
+        <label><input type="checkbox" class="r1-check"> Asked a teacher for a recommendation (if required)</label>
+        <label><input type="checkbox" class="r1-check"> Booked my SAT or English test and planned how to send scores</label>
+        <label><input type="checkbox" class="r1-check"> Practiced for the interview (in English if International)</label>
+      </div>
+      <div id="r1CheckCount" class="note-small">0 / 8 done</div>
+    </div>
+
+    <div class="card">
+      <h3>Should I Try Round 1?</h3>
+      <div class="note-small">Tick what is true for you.</div>
+      <div class="opt-row" style="flex-direction:column; align-items:flex-start;">
+        <label><input type="checkbox" class="r1-dec"> I have evidence to show (projects, awards, activities)</label>
+        <label><input type="checkbox" class="r1-dec"> My target program has a Round 1 window that is still open or coming</label>
+        <label><input type="checkbox" class="r1-dec"> I can meet any test-score requirement before the deadline (SAT, English, TGAT)</label>
+        <label><input type="checkbox" class="r1-dec"> I can prepare for an interview</label>
+      </div>
+      <div class="result-banner" style="margin-top:12px;">
+        <div>
+          <div class="rb-label">My Round 1 signal</div>
+          <div class="rb-value" id="r1Result">Tick the boxes above</div>
+        </div>
+      </div>
+      <div class="note-small" style="margin-top:8px;">A simple guide, not a verdict. Always read the program's own announcement.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ COMPLETE ============ -->
+<div class="page" id="page-complete">
+  <div class="hero-page">
+    <div style="margin-bottom:6px;"><span class="ico" data-icon="star" data-icon-size="34"></span></div>
+    <h1>You've completed your LIFE cycle.</h1>
+    <div class="sub">LIFE is not a one-time decision. It's a cycle of discovery and growth. Revisit any step, anytime your direction changes.</div>
+    <div class="howitworks">
+      <b>Before you go:</b>
+      <ul>
+        <li>Check your first deadline: TGAT/TPAT registration opens 4 November 2026 (verify on mytcas.com)</li>
+        <li>Do your 3 first steps this week and tell your buddy</li>
+        <li>SAT needed? Register by 20 Nov for the 5 Dec test (check College Board). Plan your Round 1 windows too</li>
+        <li>Lowest Ikigai score? Talk to a teacher or parent about it</li>
+        <li>Print this workbook to keep a copy of everything you filled in</li>
+      </ul>
+    </div>
+    <button class="start-btn" onclick="printWorkbook()"><span class="ico" data-icon="printer" data-icon-size="14"></span> Print My Full Workbook</button>
+    <div style="margin-top:14px;"><a href="#" onclick="goToStep(0); return false;" style="color:#CADCFC;">← Review my answers from the start</a></div>
+    <div class="script" style="margin-top:24px; color:var(--gold); font-size:19px;">I don't just help you choose. I help you become who you are meant to be.</div>
+    <div style="color:#9FB2C8; font-size:12px; margin-top:6px;">— P'Note, Sarut Samathanawin</div>
+  </div>
+</div>
+
+<!-- ============ REFERENCES (separate page) ============ -->
+<div class="page" id="page-references">
+  <section class="step wrap">
+    <span class="kicker kicker-R"><span class="ico" data-icon="book" data-icon-size="14"></span> REFERENCE</span>
+    <h2 class="sec-title">Faculty Group Facts &amp; Sources</h2>
+    <div class="sec-sub">Career examples, future trends, and competition signals — drawn from WEF, McKinsey, LinkedIn, WHO, OECD, World Bank, and US BLS.</div>
+    <button class="nav-btn back no-print" style="margin-bottom:20px;" onclick="leaveReferences()">← Back to my workbook</button>
+
+    <div id="factCards"></div>
+
+    <div class="card" id="mythsCard">
+      <h3>Myths &amp; Reality Checks</h3>
+      <div id="mythsList"></div>
+    </div>
+
+    <div class="card">
+      <h3>RIASEC Code → Faculty Group Lookup</h3>
+      <div class="sec-sub" style="margin-bottom:10px;">All 15 possible letter-pair combinations. Order doesn't matter (I + S = S + I). These are suggested starting points, not a verdict — if your result feels off, look at neighboring codes or talk to your facilitator.</div>
+      <div class="table-scroll">
+        <table class="maptable">
+          <thead><tr><th>Code</th><th>Suggested Faculty Group</th><th>Why</th></tr></thead>
+          <tbody id="mapTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="step-footer no-print" id="stepFooter">
+  <div class="wrap">
+    <button class="nav-btn back" id="backBtn" onclick="prevStep()">← Back</button>
+    <span class="step-count" id="stepCount"></span>
+    <button class="nav-btn next" id="nextBtn" onclick="nextStep()">Next →</button>
+  </div>
+</div>
+
+<script>
+// ================= ICON SYSTEM (primitive-shape-only inline SVG, print-safe) =================
+const ICONS = {
+  compass: `<circle cx="12" cy="12" r="9"/><polygon points="12,6 14.2,12 12,18 9.8,12" fill="currentColor" stroke="none"/>`,
+  idcard: `<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="8" cy="12" r="2"/><line x1="13" y1="10" x2="19" y2="10"/><line x1="13" y1="14" x2="19" y2="14"/>`,
+  target: `<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="2"/>`,
+  rocket: `<polygon points="12,3 16,13 8,13" fill="currentColor" stroke="none"/><rect x="9" y="13" width="6" height="6" rx="1"/><circle cx="12" cy="9" r="1.2" fill="#fff" stroke="none"/><polygon points="9,19 12,23 12,19" fill="currentColor" stroke="none"/><polygon points="15,19 12,23 12,19" fill="currentColor" stroke="none"/>`,
+  book: `<rect x="3" y="5" width="8" height="14" rx="1"/><rect x="13" y="5" width="8" height="14" rx="1"/><line x1="12" y1="5" x2="12" y2="19"/>`,
+  star: `<polygon points="12,2 14.9,8.5 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.5" fill="currentColor" stroke="none"/>`,
+  bulb: `<circle cx="12" cy="9" r="6"/><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="21" x2="14" y2="21"/>`,
+  printer: `<rect x="6" y="9" width="12" height="7" rx="1"/><rect x="8" y="3" width="8" height="6"/><rect x="8" y="16" width="8" height="5"/>`,
+  chip: `<rect x="6" y="6" width="12" height="12" rx="1"/><line x1="9" y1="2" x2="9" y2="6"/><line x1="15" y1="2" x2="15" y2="6"/><line x1="9" y1="18" x2="9" y2="22"/><line x1="15" y1="18" x2="15" y2="22"/><line x1="2" y1="9" x2="6" y2="9"/><line x1="2" y1="15" x2="6" y2="15"/><line x1="18" y1="9" x2="22" y2="9"/><line x1="18" y1="15" x2="22" y2="15"/>`,
+  heart: `<circle cx="9" cy="9.5" r="4" fill="currentColor" stroke="none"/><circle cx="15" cy="9.5" r="4" fill="currentColor" stroke="none"/><polygon points="5,11.5 12,20 19,11.5" fill="currentColor" stroke="none"/>`,
+  flask: `<line x1="9" y1="2" x2="9" y2="8"/><line x1="15" y1="2" x2="15" y2="8"/><line x1="9" y1="2" x2="15" y2="2"/><polygon points="9,8 15,8 20,20 4,20"/>`,
+  briefcase: `<rect x="3" y="8" width="18" height="12" rx="2"/><rect x="9" y="4" width="6" height="4" rx="1"/><line x1="3" y1="13" x2="21" y2="13"/>`,
+  scale: `<line x1="12" y1="3" x2="12" y2="21"/><line x1="5" y1="7" x2="19" y2="7"/><line x1="5" y1="7" x2="3" y2="13"/><line x1="5" y1="7" x2="7" y2="13"/><line x1="19" y1="7" x2="17" y2="13"/><line x1="19" y1="7" x2="21" y2="13"/><circle cx="5" cy="14" r="2.3"/><circle cx="19" cy="14" r="2.3"/><line x1="8" y1="21" x2="16" y2="21"/>`,
+  chat: `<rect x="3" y="5" width="18" height="12" rx="6"/><polygon points="8,17 8,21 12,17" fill="currentColor" stroke="none"/>`,
+  pencil: `<line x1="4" y1="20" x2="16" y2="8"/><polygon points="16,8 20,4 22,6 18,10" fill="currentColor" stroke="none"/><polygon points="2,22 4,20 6,22" fill="currentColor" stroke="none"/>`,
+  clock: `<circle cx="12" cy="12" r="9"/><line x1="12" y1="7" x2="12" y2="12"/><line x1="12" y1="12" x2="16" y2="14"/>`,
+  map: `<polygon points="3,6 9,4 15,6 21,4 21,18 15,20 9,18 3,20"/><line x1="9" y1="4" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="20"/>`,
+  passport: `<rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><line x1="8" y1="17" x2="16" y2="17"/>`,
+};
+function iconSvg(name, size){
+  const paths = ICONS[name] || "";
+  const s = size || 16;
+  return `<svg class="icon-svg" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+}
+function injectIcons(){
+  document.querySelectorAll("[data-icon]").forEach(el => {
+    el.innerHTML = iconSvg(el.dataset.icon, +el.dataset.iconSize || 16);
+  });
+}
+injectIcons();
+// Icon per faculty group, used on Passport stamp cards and fact cards
+const GROUP_ICONS = { eng:"chip", med:"heart", sci:"flask", bba:"briefcase", law:"scale", lang:"chat", design:"pencil" };
+
+// ================= DATA =================
+const COLORS = { navy:"#1B2A4A", green:"#2E7D5B", gold:"#D9A441", slate:"#3E5871" };
+
+const RIASEC_ITEMS = [
+  ["R","I enjoy building, fixing, or making things with my hands (robots, engines, DIY projects)"],
+  ["R","I prefer active/outdoor tasks over sitting and reading all day"],
+  ["R","I'm curious how machines or systems work"],
+  ["I","I like finding answers through research or experiments"],
+  ["I","I enjoy math, science, or coding"],
+  ["I","I like analyzing complex problems step by step"],
+  ["A","I enjoy drawing, designing, composing, or creating art"],
+  ["A","I often have original ideas others don't think of"],
+  ["A","Aesthetics and self-expression matter a lot to me"],
+  ["S","I enjoy helping, teaching, or advising friends"],
+  ["S","I care about social issues and want to improve others' lives"],
+  ["S","Friends often come to me with their problems"],
+  ["E","I enjoy leading, managing a team, or planning projects"],
+  ["E","I enjoy persuading, negotiating, or pitching ideas"],
+  ["E","I want to start my own business or venture someday"],
+  ["C","I like structure, clear plans, and following steps"],
+  ["C","I'm good at organizing data, numbers, or documents carefully"],
+  ["C","I feel comfortable working within clear rules and standards"],
+];
+const LETTER_NAMES = { R:"Realistic", I:"Investigative", A:"Artistic", S:"Social", E:"Enterprising", C:"Conventional" };
+const LETTER_COLORS = { R:"#7A4B8C", I:COLORS.green, A:"#B0522D", S:"#1F6F6F", E:COLORS.gold, C:COLORS.slate };
+const MAPPING = [
+  ["R + I","Engineering (ENG)","Hands-on + technical/analytical","eng"],
+  ["I + S","Medicine / Dentistry / Pharmacy / Vet (MED DENT PHARM)","Analytical + caring for people","med"],
+  ["I + A","Science / Design-Tech hybrid (SCI / DESIGN ARCH)","Analytical + creative thinking","sci"],
+  ["I + C","Science, ICT & Data (SCI)","Analytical + structured/detail-oriented","sci"],
+  ["A + S","Language & Communication Arts (LANG COMARTS)","Creative + communicating with people","lang"],
+  ["A + E","Design & Architecture (DESIGN ARCH)","Creative + driving projects forward","design"],
+  ["S + E","Law / Political Science (LAW POLSCI)","People-focused + leading/persuading","law"],
+  ["S + C","Law / Political Science — public admin track (LAW POLSCI)","People-focused + structured","law"],
+  ["E + C","Business Administration & Economics (BBA ECON)","Driving business + numbers/structure","bba"],
+  ["R + C","Engineering — technical/operations track (ENG)","Hands-on + structured/systematic","eng"],
+  ["R + A","Design & Architecture (DESIGN ARCH)","Hands-on + creative, likes building tangible things","design"],
+  ["R + E","Engineering — technical leadership track (ENG)","Hands-on + driving projects/leading a team","eng"],
+  ["R + S","Medicine / Dentistry / Pharmacy / Vet — allied health track (MED DENT PHARM)","Hands-on + caring for people","med"],
+  ["I + E","Business Administration & Economics — analytics/fintech track (BBA ECON)","Analytical + business drive","bba"],
+  ["A + C","Design & Architecture — structured production design (DESIGN ARCH)","Creative + structured/detail-oriented","design"],
+];
+// The 15 possible unordered RIASEC letter-pairs are all represented above.
+const FACT_GROUPS = [
+  { id:"eng", name:"ENG — Engineering", color:COLORS.navy, riasec:"R + I",
+    unis:"CU · CMU · KKU · KMITL · KMUTNB · KMUTT · KU · MU · TU",
+    careers:["Software / AI engineer","Mechanical / civil / electrical engineer","Industrial / automation engineer"],
+    trend:["Strongest global demand signal","AI, software, data roles rank #1-4 fastest-growing (WEF)","Green-energy engineering also rising fast"],
+    competition:["Skills shortage favors grads in AI/software","Civil & chemical steady, not saturated","Regional soft-skills gap noted (ASEAN data)"],
+    admission:{ common:"All 17 programs we reviewed require English proficiency; a math test (SAT/ACT/CU-AAT Math or IB Math HL) is required or heavily weighted in nearly every program.",
+                diff:"Some universities (e.g. KKU) substitute GPA in Chemistry/Math/Physics instead of standardized tests; others (KMUTT, KU IUP) make the math test optional if you submit a strong portfolio + interview instead." },
+    sources:[["WEF Future of Jobs Report 2025","https://www.weforum.org/publications/the-future-of-jobs-report-2025"],
+             ["US BLS — Architecture & Engineering","https://www.bls.gov/ooh/architecture-and-engineering"],
+             ["OECD Skills Strategy Thailand","https://www.oecd.org/en/publications/oecd-skills-strategy-thailand"]] },
+  { id:"med", name:"MED DENT PHARM — Medicine, Dentistry, Pharmacy, Vet", color:COLORS.slate, riasec:"I + S",
+    unis:"CU · CMU · KKU · KMITL · KU · MU · TU · +10 more",
+    careers:["Physician / dentist / pharmacist","Veterinarian","Medical technologist"],
+    trend:["Global shortage: 10M+ health workers needed by 2030 (WHO/McKinsey)","Aging population drives long-term demand","AI augments, not replaces, clinicians"],
+    competition:["Very hard to ENTER (limited seats, licensing)","Very easy to find work once qualified","Thailand still below WHO doctor-ratio benchmark"],
+    admission:{ common:"Nearly all 41 programs we reviewed require English proficiency plus a science admission test (TBAT, BMAT, UCAT, MCAT, or TGAT/TPAT) — this combination is unique to this group, and English thresholds tend to be the highest of any faculty group.",
+                diff:"A GPAX-based alternative pathway (e.g. Chem/Bio/Math-or-Physics GPA ≥3.50) exists at several universities for students without international test scores — but not all; some (like CU) require the test route with no GPA alternative." },
+    sources:[["McKinsey Health Institute (2025)","https://www.mckinsey.com/mhi/our-insights/heartbeat-of-health-reimagining-the-healthcare-workforce-of-the-future"],
+             ["WHO Thailand HRH Country Profile","https://cdn.who.int/media/docs/default-source/searo/his/hrh-profiles/thailand_hrh_countryprofile_final_09232024.pdf"],
+             ["US BLS — Healthcare","https://www.bls.gov/ooh/healthcare"]] },
+  { id:"sci", name:"SCI — Science, Biotech, Agro-Industry, ICT", color:COLORS.green, riasec:"I + C",
+    unis:"CU · KU · MU",
+    careers:["Data scientist / AI engineer","Biotech researcher","Food scientist"],
+    trend:["AI/data & biotech = fastest-growing occupations (WEF)","Green-chemistry & materials science rising","Agro-industry shifting toward technical roles"],
+    competition:["Acute shortage of AI/data talent globally","Biotech talent-constrained, not oversupplied","Thailand-specific digital skills gap confirmed"],
+    admission:{ common:"English proficiency required across the board; portfolio is required at all KU programs we reviewed but not at CU or MU programs in this group.",
+                diff:"CU's programs add a math test and skip the portfolio (closer to the ENG pattern), while KU weighs portfolio + statement of purpose heavily and treats the math test as optional." },
+    sources:[["WEF — Fastest-growing jobs 2025","https://www.weforum.org/stories/2025/01/future-of-jobs-report-2025-the-fastest-growing-and-declining-jobs"],
+             ["McKinsey — The Bio Revolution","https://www.mckinsey.com/industries/life-sciences/our-insights/the-bio-revolution-innovations-transforming-economies-societies-and-our-lives"],
+             ["World Bank — Thailand Digital Data Infrastructure","https://thedocs.worldbank.org/en/doc/c9160dd8065d1300384d8ab790742165-0070012025/original/Deliverable-5-Final-DDIR-for-publication-June2025-final-revision.pdf"]] },
+  { id:"bba", name:"BBA ECON — Business Administration & Economics", color:COLORS.gold, riasec:"E + C",
+    unis:"CU · KKU · KMITL · KU · MU · TU",
+    careers:["Management / marketing","Finance / FinTech analyst","Tourism & hospitality manager"],
+    trend:["Clerical/admin roles declining (AI)","FinTech & business development roles growing","Tourism sector rebounding strongly (WTTC)"],
+    competition:["Generic BBA is oversubscribed globally","Elite finance/consulting ~1% acceptance","Specialization reduces competition sharply"],
+    admission:{ common:"Nearly all programs we reviewed require an English test plus an interview, and most also require a math test (SAT/ACT/CU-AAT Math).",
+                diff:"Score bars vary sharply by university — CU asks for IELTS ~6.5/SAT ~1300, while some others accept IELTS ~4.5-5.0; only a couple of programs require a portfolio." },
+    sources:[["WEF — Fastest-growing/declining jobs 2025","https://www.weforum.org/stories/2025/01/future-of-jobs-report-2025-the-fastest-growing-and-declining-jobs"],
+             ["WTTC 2026 global tourism forecast","https://eng.tourismandsocietytt.com/news-and-newsletter/2026/2026-may/ultimas-noticias/wttc-presents-record-global-forecasts-for-international-tourism"],
+             ["Research.com — Business Admin Oversaturation","https://research.com/advice/are-too-many-students-choosing-business-administration-oversaturation-competition-hiring-reality"]] },
+  { id:"law", name:"LAW POLSCI — Law & Political Science", color:"#7A4B8C", riasec:"S + E",
+    unis:"CU · KKU · MU · TU",
+    careers:["Lawyer / legal counsel","Diplomat / policy analyst","Government program analyst"],
+    trend:["Routine legal drafting declining (AI)","Regulatory, AI-governance, ESG law growing","Public-policy analyst roles rising (LinkedIn)"],
+    competition:["Elite firms/judiciary very competitive","Broader compliance/policy roles accessible","IR/PolSci = versatile but generalist competition"],
+    admission:{ common:"English proficiency and an interview are required across every program we reviewed; none require a math test.",
+                diff:"Qualifying English thresholds vary by university (some set the highest bar), and some programs accept a wider range of English tests (EnglishScore, PTE, Duolingo) than others." },
+    sources:[["WEF Future of Jobs Report 2025","https://www.weforum.org/publications/the-future-of-jobs-report-2025/digest"],
+             ["McKinsey — GenAI and Legal Tech","https://www.mckinsey.com/featured-insights/in-the-balance/its-not-automagical-adopting-generative-ai-and-legal-tech-takes-strategy-intuition-and-systems-thinking"],
+             ["Tilleke & Gibbins — Legal Profession in Thailand","https://www.tilleke.com/wp-content/uploads/2019/07/NEW2__CH01-An-Overview-of-the-Legal-Profession-in-Thailand_20190515_0.pdf"]] },
+  { id:"lang", name:"LANG COMARTS — Language, Communication Arts & Journalism", color:"#B0522D", riasec:"A + S",
+    unis:"CU · KU · MU · TU",
+    careers:["Translator / interpreter","PR / communications specialist","Content strategist / journalist"],
+    trend:["Routine translation/content = automatable","AI content strategy & UX writing growing","Traditional journalism structurally pressured"],
+    competition:["Comms roles increasingly need data/AI skills","No confirmed global oversupply data for journalism","Add technical skills to stay competitive"],
+    admission:{ common:"English proficiency is required across every program we reviewed, with no math test anywhere in this group.",
+                diff:"Some universities' programs share a consistent test scale and portfolio-round structure with each other, while others (e.g. CU) set noticeably higher English thresholds." },
+    sources:[["WEF Future of Jobs Report 2025 — Skills Outlook","https://www.weforum.org/publications/the-future-of-jobs-report-2025/in-full/3-skills-outlook"],
+             ["UNESCO — World Trends in Freedom of Expression","https://www.unesco.org/en/articles/new-report-unesco-warns-serious-decline-freedom-expression-and-safety-journalists-worldwide"],
+             ["US BLS — Interpreters and Translators","https://www.bls.gov/ooh/media-and-communication/interpreters-and-translators.htm"]] },
+  { id:"design", name:"DESIGN ARCH — Design & Architecture", color:"#1F6F6F", riasec:"A + E",
+    unis:"CU · KMITL · KMUTT · MU · TU",
+    careers:["Architect","UX / product designer","Graphic / brand designer"],
+    trend:["Traditional graphic design newly flagged as declining (AI)","UX/UI design among top-10 fastest-growing (WEF)","Architecture stable — green-building demand rising"],
+    competition:["Graphic design oversupplied + AI pressure","Architecture self-limiting via licensure (~78% pass)","Thailand construction market growing ~9%/yr"],
+    admission:{ common:"English proficiency and an interview are required everywhere; portfolio is the dominant factor across this whole group, often 40-100% of the admission decision.",
+                diff:"No program requires a math test — reflecting the creative focus. Portfolio content varies widely, from general creative work samples to an exact structured template (e.g. a specified page-count format)." },
+    sources:[["WEF FOJ 2025 — Design takeaways","https://beda.org/news/take-aways-for-design-from-the-wef-future-of-jobs-2025-report"],
+             ["McKinsey — Generative AI & future jobs","https://www.mckinsey.com/mgi/our-research/generative-ai-how-will-it-affect-future-jobs-and-workflows"],
+             ["US BLS — Arts and Design Occupations","https://www.bls.gov/ooh/arts-and-design"]] },
+];
+
+// ================= V5 DATA (workshop 28 Oct 2026) =================
+const IKIGAI_QS = [
+  ["Love","If nobody pressured me, would I still want to study this?"],
+  ["Good at","Am I doing well in subjects related to this field?"],
+  ["World needs","Is there real demand for this field? (check the Expo cards and References)"],
+  ["Paid for","Can this support the life I described in my Vision?"],
+];
+const RATE_LABELS = [[1,"1 · Not yet"],[2,"2 · Somewhat"],[3,"3 · Yes"]];
+const REACH_OPTS = [["yes","Yes"],["maybe","Maybe"],["notyet","Not yet"]];
+
+const WORD_BANKS = {
+  word:     ["free","creative","secure","adventurous","connected","respected","calm","curious","helpful","balanced"],
+  strength: ["stays calm under pressure","curious","organized","good listener","creative","persistent","leads others","patient","quick learner","explains clearly","hands-on","careful with details"],
+  interest: ["designing","helping people","solving puzzles","building things","writing","performing","animals","technology","nature","business","teaching","health"],
+  value:    ["freedom","security","helping others","creativity","respect","adventure","family","learning","fairness","balance","impact"],
+};
+
+// key dates (TCAS70). iso = first day of the milestone, used for the live "from today" tag.
+const KEY_DATES = [
+  { date:"15 Aug 2026 onward", what:"Round 1 Portfolio open (each university sets its own deadline)", iso:"2026-08-15", open:true },
+  { date:"4–10 Nov 2026", what:"TGAT/TPAT registration (late registration 11–12 Nov)", iso:"2026-11-04" },
+  { date:"20 Nov / 5 Dec 2026", what:"SAT: register by 20 Nov for the 5 Dec test (if your program asks for it)", iso:"2026-11-20" },
+  { date:"Dec 2026–Feb 2027", what:"Round 1 windows differ by program (example: 4 Jan–4 Feb 2027). Check each one", iso:"2027-01-04" },
+  { date:"14–20 Jan 2027", what:"A-Level registration", iso:"2027-01-14" },
+  { date:"30 Jan–1 Feb 2027", what:"TGAT/TPAT 2–5 exams", iso:"2027-01-30" },
+  { date:"13 Feb 2027", what:"TPAT1 exam (medicine)", iso:"2027-02-13" },
+  { date:"6 Mar 2027", what:"SAT test date (register by 19 Feb)", iso:"2027-03-06" },
+  { date:"10–11 Mar 2027", what:"Round 1 results and confirmation", iso:"2027-03-10" },
+  { date:"13–15 Mar 2027", what:"A-Level exams", iso:"2027-03-13" },
+  { date:"7–11 May 2027", what:"Round 3 Admission applications", iso:"2027-05-07" },
+  { date:"29 May–15 Jun 2027", what:"Round 4 Direct Admission", iso:"2027-05-29" },
+];
+
+const ROADMAP = [
+  ["THIS WEEK","Choose your targets and do your 3 first steps", null, true],
+  ["4–10 Nov 2026","TGAT/TPAT registration (late registration 11–12 Nov)", "2026-11-04", true],
+  ["20 Nov–5 Dec 2026","SAT: register by 20 Nov for the 5 Dec test (only if your program asks for it)", "2026-11-20", true],
+  ["Dec 2026–Feb 2027","Round 1: submit before each program's own close date (example: 4 Jan–4 Feb 2027)", "2027-01-04", true],
+  ["14–20 Jan 2027","A-Level registration (if you need it)", "2027-01-14", true],
+  ["30 Jan–1 Feb 2027","TGAT/TPAT 2–5 exams. TPAT1 on 13 Feb", "2027-01-30", true],
+  ["10–11 Mar 2027","Round 1 results and confirmation", "2027-03-10", true],
+  ["13–15 Mar 2027","A-Level exams", "2027-03-13", true],
+  ["7–11 May 2027","Round 3 Admission applications", "2027-05-07", false],
+  ["29 May–15 Jun 2027","Round 4 Direct Admission", "2027-05-29", false],
+];
+
+// Career Expo stations (6). Station 4 merges Language/Comm Arts and Law/PolSci.
+const STATIONS = [
+  { id:"bba", name:"Business & Economics", refs:["bba"], riasec:"E+C", color:"#D9A441", icon:"briefcase" },
+  { id:"design", name:"Design & Architecture", refs:["design"], riasec:"A+E", color:"#1F6F6F", icon:"pencil" },
+  { id:"eng", name:"Engineering", refs:["eng"], riasec:"R+I", color:"#1B2A4A", icon:"chip" },
+  { id:"langlaw", name:"Languages, Comm Arts, Law & Political Science", refs:["lang","law"], riasec:"A+S / S+E", color:"#7A4B8C", icon:"chat" },
+  { id:"med", name:"Medicine, Dentistry & Pharmacy", refs:["med"], riasec:"I+S", color:"#3E5871", icon:"heart" },
+  { id:"sci", name:"Science", refs:["sci"], riasec:"I+C", color:"#2E7D5B", icon:"flask" },
+];
+
+const STEP_META = [
+  { id:"vision", label:"Vision", color:COLORS.navy, letter:"L" },
+  { id:"riasec", label:"RIASEC", color:COLORS.green, letter:"I" },
+  { id:"whoami", label:"Who Am I", color:COLORS.green, letter:"I" },
+  { id:"clock", label:"TCAS Clock", color:COLORS.gold, letter:"F" },
+  { id:"route", label:"Route Map", color:COLORS.gold, letter:"F" },
+  { id:"expo", label:"Expo", color:COLORS.gold, letter:"F" },
+  { id:"ikigai", label:"Ikigai", color:COLORS.gold, letter:"F" },
+  { id:"portfolio", label:"Portfolio", color:COLORS.gold, letter:"F" },
+  { id:"roadmap", label:"Roadmap", color:COLORS.slate, letter:"E" },
+  { id:"sat", label:"SAT", color:"#7A4B8C", letter:"S" },
+  { id:"round1", label:"Round 1", color:"#7A4B8C", letter:"R" },
+];
+
+const MYTHS = [
+  { myth:"High demand today means it'll be easy to get a job.",
+    reality:"Demand and competition work differently at each stage. Medicine is very hard to get INTO but easy to find work in afterward; generic Business Administration is only moderately hard to get into but the graduate job market is oversubscribed. Check both the admission snapshot AND the Competition column for your group — not just one." },
+  { myth:"If I don't get my first-choice faculty group, my future plan is over.",
+    reality:"TCAS runs multiple rounds, and many careers can be reached from more than one faculty group. Treat your Top-2 (or tied) RIASEC matches as real backup options, not just your single favorite." },
+  { myth:"AI is going to make my whole field useless.",
+    reality:"The research shows AI reshaping specific tasks, not eliminating whole fields — e.g. routine legal drafting and generic graphic design are declining, while AI-governance law and UX/product design are growing in those very same faculty groups." },
+  { myth:"Passion is all that matters — the market will catch up eventually.",
+    reality:"That's exactly why the Ikigai check uses 4 lenses, not one. Love and skill matter, but so do market demand and your real-life constraints — weigh all four together, don't stop at the first one that feels good." },
+  { myth:"A high score on just ONE RIASEC letter is enough to decide.",
+    reality:"Most careers sit at the intersection of two traits (or more, if you had a tie) — that's why this workbook looks at letter pairs, not a single top score." },
+  { myth:"Only my test scores or portfolio matter — my personality doesn't.",
+    reality:"Fit affects long-term satisfaction as much as getting in does. A student who can meet a faculty group's entry requirements but is a poor RIASEC/Ikigai fit often struggles more once they're actually studying there." },
+];
+// ================= RENDER RIASEC GRID =================
+const riasecBody = document.getElementById("riasecBody");
+RIASEC_ITEMS.forEach((item, i) => {
+  const [letter, text] = item;
+  const row = document.createElement("div");
+  row.className = "ri-row";
+  row.innerHTML = `<input type="checkbox" class="rowcheck" data-letter="${letter}" id="ri-${i}">
+    <span class="letter-chip" style="background:${LETTER_COLORS[letter]}">${letter}</span>
+    <label class="ri-text" for="ri-${i}">${text}</label>`;
+  riasecBody.appendChild(row);
+});
+
+const scorePanel = document.getElementById("scorePanel");
+["R","I","A","S","E","C"].forEach(l => {
+  const box = document.createElement("div");
+  box.className = "score-box";
+  box.style.borderColor = LETTER_COLORS[l];
+  box.innerHTML = `<div class="n" id="score-${l}" style="color:${LETTER_COLORS[l]}">0</div><div class="lbl">${l} — ${LETTER_NAMES[l]}</div>`;
+  scorePanel.appendChild(box);
+});
+
+function normalizeCode(a,b){ return [a,b].sort().join(" + "); }
+
+function lookupGroup(l1, l2){
+  const code = normalizeCode(l1, l2);
+  const match = MAPPING.find(m => normalizeCode(...m[0].split(" + ")) === code);
+  return match ? { group: match[1], refId: match[3] } : { group: "See closest match in References", refId: null };
+}
+
+function renderSimpleResult(codeStr, groupStr, refId){
+  return `<div class="result-banner">
+      <div>
+        <div class="rb-label">My Top RIASEC Code</div>
+        <div class="rb-value" id="topCode">${codeStr}</div>
+      </div>
+      <div>
+        <div class="rb-label">Suggested Faculty Group(s)</div>
+        <div class="rb-value" id="topGroup">${groupStr}</div>
+      </div>
+      <a class="jump" id="jumpToRef" data-target="${refId || ''}">View facts →</a>
+    </div>`;
+}
+
+function attachJumpHandler(){
+  const el = document.getElementById("jumpToRef");
+  if (!el) return;
+  el.addEventListener("click", (e) => {
+    e.preventDefault();
+    const target = e.currentTarget.dataset.target;
+    goToReferences(target ? target : null);
+  });
+}
+
+// tiedLetters: array of letters involved in the tie.
+// mode "top": 3+ letters tied for 1st place, all letters equally uncertain — show every pair.
+// mode "second": one clear leader, 2+ letters tied for 2nd place — leader always paired with each option.
+function renderTieResult(tiedLetters, mode, leader){
+  let pairs = [];
+  if (mode === "top") {
+    for (let i=0;i<tiedLetters.length;i++){
+      for (let j=i+1;j<tiedLetters.length;j++){
+        pairs.push([tiedLetters[i], tiedLetters[j]]);
+      }
+    }
+  } else {
+    tiedLetters.filter(l => l !== leader).forEach(l => pairs.push([leader, l]));
+  }
+  const rows = pairs.map(([l1,l2]) => {
+    const {group, refId} = lookupGroup(l1,l2);
+    const codeStr = [l1,l2].join(" + ");
+    return `<div class="tie-pair-row">
+      <span class="tie-pair-code">${codeStr}</span>
+      <span class="tie-pair-group">${group}</span>
+      <a class="jump tie-jump" data-target="${refId || ''}">View facts →</a>
+    </div>`;
+  }).join("");
+  const tieLabel = tiedLetters.join(" + ");
+  const html = `<div class="result-banner">
+      <div>
+        <div class="rb-label">My Top RIASEC Code</div>
+        <div class="rb-value" id="topCode">${tieLabel} (tie)</div>
+      </div>
+      <div>
+        <div class="rb-label">Suggested Faculty Group(s)</div>
+        <div class="rb-value" id="topGroup">Multiple — see below</div>
+      </div>
+    </div>
+    <div class="tie-detail">
+      <div class="tie-detail-head">You have a ${tiedLetters.length}-way tie — that's a genuine blend, not an error. Here are your candidate directions:</div>
+      ${rows}
+      <div class="tie-note">Tip: use your Ikigai check (Ikigai step) on 2-3 of these to help narrow down, or talk to your facilitator.</div>
+    </div>`;
+  return html;
+}
+
+function updateRiasec(){
+  const counts = {R:0,I:0,A:0,S:0,E:0,C:0};
+  document.querySelectorAll(".rowcheck").forEach(cb => { if(cb.checked) counts[cb.dataset.letter]++; });
+  Object.keys(counts).forEach(l => document.getElementById("score-"+l).textContent = counts[l]);
+
+  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const wrap = document.getElementById("riasecResultWrap");
+  const maxScore = sorted[0][1];
+
+  if (maxScore === 0) {
+    wrap.innerHTML = renderSimpleResult("— fill in the checklist above —", "—", null);
+    document.getElementById("idCardCode").textContent = "— · —";
+    attachJumpHandler();
+    return;
+  }
+
+  const topTier = sorted.filter(([l,c]) => c === maxScore).map(([l]) => l);
+
+  if (topTier.length >= 3) {
+    wrap.innerHTML = renderTieResult(topTier, "top");
+    document.getElementById("idCardCode").textContent = topTier.join(" + ") + " (blend)";
+    wrap.querySelectorAll(".tie-jump").forEach(a => a.addEventListener("click", (e) => { e.preventDefault(); goToReferences(e.currentTarget.dataset.target || null); }));
+    return;
+  }
+
+  if (topTier.length === 2) {
+    const [l1,l2] = topTier;
+    const {group, refId} = lookupGroup(l1,l2);
+    const codeStr = topTier.join(" + ");
+    wrap.innerHTML = renderSimpleResult(codeStr, group, refId);
+    document.getElementById("idCardCode").textContent = codeStr;
+    attachJumpHandler();
+    return;
+  }
+
+  // topTier.length === 1: a single clear leader
+  const leader = topTier[0];
+  const remaining = sorted.filter(([l]) => l !== leader);
+  const secondScore = remaining[0][1];
+  const secondTier = remaining.filter(([l,c]) => c === secondScore).map(([l]) => l);
+
+  if (secondScore === 0) {
+    wrap.innerHTML = renderSimpleResult(leader + " (answer a few more to reveal a 2nd type)", "—", null);
+    document.getElementById("idCardCode").textContent = leader;
+    attachJumpHandler();
+    return;
+  }
+
+  if (secondTier.length === 1) {
+    const l2 = secondTier[0];
+    const {group, refId} = lookupGroup(leader, l2);
+    const codeStr = [leader,l2].join(" + ");
+    wrap.innerHTML = renderSimpleResult(codeStr, group, refId);
+    document.getElementById("idCardCode").textContent = codeStr;
+    attachJumpHandler();
+    return;
+  }
+
+  // leader is clear, but 2+ letters are tied for the "2nd" slot
+  wrap.innerHTML = renderTieResult([leader, ...secondTier], "second", leader);
+  document.getElementById("idCardCode").textContent = leader + " + (" + secondTier.join("/") + ") blend";
+  wrap.querySelectorAll(".tie-jump").forEach(a => a.addEventListener("click", (e) => { e.preventDefault(); goToReferences(e.currentTarget.dataset.target || null); }));
+}
+document.querySelectorAll(".rowcheck").forEach(cb => cb.addEventListener("change", updateRiasec));
+updateRiasec();
+
+// ================= TODAY + COUNTDOWN =================
+// ?today=YYYY-MM-DD lets a facilitator preview the page on another date.
+function getToday(){
+  const p = new URLSearchParams(window.location.search).get("today");
+  const d = p && /^\d{4}-\d{2}-\d{2}$/.test(p) ? new Date(p + "T00:00:00") : new Date();
+  d.setHours(0,0,0,0);
+  return d;
+}
+function daysUntil(iso){
+  const t = new Date(iso + "T00:00:00");
+  return Math.round((t - getToday()) / 86400000);
+}
+function daysLabel(d){
+  if (d > 1) return "in " + d + " days";
+  if (d === 1) return "tomorrow";
+  if (d === 0) return "today";
+  return "passed";
+}
+function daysTag(iso, openFlag){
+  const d = daysUntil(iso);
+  if (openFlag && d <= 0) return `<span class="days-tag">open now</span>`;
+  return `<span class="days-tag${d < 0 ? " past" : ""}">${daysLabel(d)}</span>`;
+}
+
+// ================= WORD CHIPS (tap to fill the next empty box) =================
+Object.keys(WORD_BANKS).forEach(group => {
+  const wrap = document.getElementById("chips-" + group);
+  if (!wrap) return;
+  WORD_BANKS[group].forEach(w => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = w; b.dataset.group = group;
+    b.addEventListener("click", () => {
+      const inputs = Array.from(document.querySelectorAll('input[data-group="' + group + '"]'));
+      const empty = inputs.find(i => !i.value.trim());
+      if (empty) { empty.value = w; empty.dispatchEvent(new Event("input", { bubbles:true })); }
+    });
+    wrap.appendChild(b);
+  });
+});
+
+// ================= TCAS CLOCK =================
+(function renderClock(){
+  const today = getToday();
+  const fmt = today.toLocaleDateString("en-GB", { day:"numeric", month:"long", year:"numeric" });
+  document.getElementById("clockSub").textContent = "Today is " + fmt + ". Where are you on the timeline?";
+  const stats = [
+    { cls:"", big:null, iso:"2026-11-04", cap:"until TGAT/TPAT registration opens (4 Nov)" },
+    { cls:"green", big:null, iso:"2027-01-30", cap:"until the first exams (30 Jan)" },
+    { cls:"slate", big:null, iso:"2027-06-15", cap:"until Round 4 closes (15 Jun)" },
+  ];
+  document.getElementById("clockStats").innerHTML = stats.map(s => {
+    const d = daysUntil(s.iso);
+    const big = d > 0 ? d + (d === 1 ? " day" : " days") : (d === 0 ? "Today" : "Passed");
+    return `<div class="stat ${s.cls}"><div class="big">${big}</div><div class="cap">${s.cap}</div></div>`;
+  }).join("");
+  document.getElementById("datesBody").innerHTML = KEY_DATES.map(k =>
+    `<tr><td><b>${k.date}</b></td><td>${k.what}</td><td>${daysTag(k.iso, k.open)}</td></tr>`).join("");
+})();
+
+// ================= CAREER EXPO / PASSPORT (6 stations) =================
+const passportGrid = document.getElementById("passportGrid");
+const stampState = {};
+STATIONS.forEach((st, idx) => {
+  stampState[st.id] = false;
+  const card = document.createElement("div");
+  card.className = "stamp-card";
+  card.dataset.id = st.id;
+  const links = st.refs.map(r => {
+    const g = FACT_GROUPS.find(x => x.id === r);
+    return `<a class="factlink" data-id="${r}">${g.name.split(" — ")[0]} facts →</a>`;
+  }).join("<br>");
+  card.innerHTML = `<div style="color:${st.color}; margin-bottom:6px;">${iconSvg(st.icon, 22)}</div>
+    <div class="stamp-circle" style="background:${st.color}">${idx + 1}</div>
+    <div class="sname">${st.name}</div>
+    <div class="sstatus">Tap to stamp</div>
+    ${links}`;
+  card.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") return;
+    stampState[st.id] = !stampState[st.id];
+    card.classList.toggle("stamped", stampState[st.id]);
+    card.querySelector(".sstatus").textContent = stampState[st.id] ? "✓ Stamped" : "Tap to stamp";
+    updatePassport();
+  });
+  card.querySelectorAll(".factlink").forEach(a => a.addEventListener("click", (e) => {
+    e.preventDefault(); e.stopPropagation();
+    goToReferences(a.dataset.id);
+  }));
+  passportGrid.appendChild(card);
+});
+function updatePassport(){
+  const visited = Object.values(stampState).filter(Boolean).length;
+  document.getElementById("passportCount").textContent = visited + " / " + STATIONS.length;
+  document.getElementById("passportBarFill").style.width = (visited / STATIONS.length * 100) + "%";
+}
+updatePassport();
+document.getElementById("expoNotesBody").innerHTML = STATIONS.map((st, i) =>
+  `<tr><td><b>${i + 1}. ${st.name}</b></td>
+   <td><input type="text" class="expo-fact"></td>
+   <td><select class="expo-score"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td></tr>`).join("");
+
+// ================= IKIGAI QUICK CHECK =================
+const ikigaiWrap = document.getElementById("ikigaiQs");
+const ikigaiState = [null, null, null, null];
+let ikigaiReach = null;
+IKIGAI_QS.forEach((q, i) => {
+  const div = document.createElement("div");
+  div.className = "ikigai-q";
+  div.innerHTML = `<div class="qtext"><div class="qlens">${q[0]}</div>${q[1]}</div>
+    <div class="rate-group">${RATE_LABELS.map(([v, l]) => `<button class="rate-btn" data-i="${i}" data-val="${v}">${l}</button>`).join("")}</div>`;
+  ikigaiWrap.appendChild(div);
+});
+(function addReach(){
+  const div = document.createElement("div");
+  div.className = "ikigai-q";
+  div.innerHTML = `<div class="qtext"><div class="qlens">Reachable?</div>Can I realistically reach this route (GPAX, exams, time)?</div>
+    <div class="rate-group">${REACH_OPTS.map(([v, l]) => `<button class="rate-btn maybe reach-btn" data-val="${v}">${l}</button>`).join("")}</div>`;
+  ikigaiWrap.appendChild(div);
+})();
+function updateIkigai(){
+  const rated = ikigaiState.filter(v => v !== null).length;
+  const total = ikigaiState.reduce((a, v) => a + (v || 0), 0);
+  document.getElementById("ikigaiCount").textContent = total + " / 12";
+  const lowEl = document.getElementById("ikigaiLowest");
+  const resEl = document.getElementById("ikigaiResult");
+  if (rated < 4) { lowEl.textContent = "—"; resEl.textContent = "Rate all 4 lenses and the reality question"; return; }
+  const min = Math.min(...ikigaiState);
+  const lows = IKIGAI_QS.filter((q, i) => ikigaiState[i] === min).map(q => q[0]);
+  lowEl.textContent = lows.join(" + ");
+  let msg;
+  if (total >= 10) msg = "Strong match. Move forward";
+  else if (total >= 7) msg = "Promising. Work on your lowest lens";
+  else msg = "Needs more exploration. Talk to a teacher or family";
+  if (ikigaiReach === "notyet") msg += ". Reachable: not yet, so plan the steps in your Roadmap";
+  else if (ikigaiReach === "maybe") msg += ". Reachable: maybe, so check requirements on myTCAS";
+  else if (ikigaiReach === null) msg += ". Answer the reality question too";
+  resEl.textContent = msg;
+}
+ikigaiWrap.addEventListener("click", (e) => {
+  const btn = e.target.closest(".rate-btn");
+  if (!btn) return;
+  const group = btn.parentElement;
+  group.querySelectorAll(".rate-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  if (btn.classList.contains("reach-btn")) ikigaiReach = btn.dataset.val;
+  else ikigaiState[+btn.dataset.i] = +btn.dataset.val;
+  updateIkigai();
+});
+
+// ================= BACKWARD ROADMAP =================
+const tlWrap = document.getElementById("timelineWrap");
+ROADMAP.forEach(([date, desc, iso, inWindow]) => {
+  const div = document.createElement("div");
+  div.className = "vt-item" + (inWindow ? "" : " future");
+  const tag = iso ? " " + daysTag(iso, false) : "";
+  div.innerHTML = `<div class="vt-dot"></div>
+    <div class="vt-card">
+      <div class="vt-date">${date}${tag}</div>
+      <div class="vt-desc">${desc}</div>
+      <textarea placeholder="My action for this milestone..."></textarea>
+    </div>`;
+  tlWrap.appendChild(div);
+});
+
+
+// ================= V6: SAT + ROUND 1 =================
+// Per-group snapshots mined from the 2026 (TCAS69) Requirements Report, English/International-program track.
+const SAT_SNAP = {
+  eng: { n:13, of:17, text:"Math usually ≥550–650 (600 or 620 at several universities). A few programs use a combined cut-off of about 800–1,020. Reading & Writing, where listed, about ≥400–460." },
+  med: { n:2, of:41, text:"Rare. KMITL Medicine asks a combined ≥1,300 and one Dentistry program accepts an SAT Subject Test with no minimum. Most programs use UCAT, BMAT, TBAT or TGAT/TPAT plus English instead." },
+  sci: { n:8, of:10, text:"Math ≥550–600 where required (CU about 550–570, MU 600, KU Biotechnology 600). Reading & Writing / Verbal ≥350–500." },
+  bba: { n:11, of:14, text:"Math ≥450–650. Reading & Writing ≥350–500. Combined cut-offs ≥1,000–1,300 (KU Accounting 1,000, KMITL 1,100, TU BBA 1,280, CU BBA 1,300)." },
+  law: { n:7, of:8, text:"Combined ≥1,200 at CU and TU Law. TU PPE combined ≥1,000 (Math ≥600 + Reading & Writing ≥450). Reading & Writing / Verbal ≥400–550 elsewhere. TU International Relations has no minimum." },
+  lang: { n:10, of:10, text:"Mostly verbal: Reading & Writing / Verbal ≥400–530 (KU KITMAN 529, CU BALAC 480). Combined ≥1,200 at CU BCM and JIPP. MU BBA MUIC asks Math ≥500." },
+  design: { n:7, of:8, text:"Reading & Writing ≥400–450. Math ≥450–600 (CU 490–570, KMITL AIDT 570, TU DBTM 600)." },
+};
+const R1_SNAP = {
+  eng: "10 of 17 programs describe a portfolio (2 more make it optional). Example: CU ISE Option 2, portfolio 35% of the decision: achievements, up to 3 engineering projects, and a short English video.",
+  med: "33 of 41 programs describe a portfolio, typically up to 10 A4 pages (Thai or English): profile, transcript, English and test scores, activities. Interviews are common.",
+  sci: "5 of 10 programs describe a portfolio (1 says not required). All the Kasetsart programs we reviewed require one.",
+  bba: "7 of 14 programs describe a portfolio. In the other 7 we found no portfolio requirement in the report.",
+  law: "4 of 8 programs describe a portfolio. Example: CU Law asks for an English PDF of up to 10 A4 pages (CV, personal statement, achievements).",
+  lang: "3 of 10 programs describe a portfolio and 2 say it is not required.",
+  design: "7 of 8 programs describe a portfolio. It is the dominant factor, often 40–100% of the decision.",
+};
+const GROUP_LABELS = {
+  eng:"Engineering", med:"Medicine, Dentistry, Pharmacy, Vet", sci:"Science, Biotech, ICT",
+  bba:"Business & Economics", law:"Law & Political Science", lang:"Languages & Communication Arts", design:"Design & Architecture",
+};
+const SAT_DATES = [
+  { test:"5 Dec 2026", testIso:"2026-12-05", reg:"2026-11-20", late:"2026-11-24", regLabel:"20 Nov 2026", lateLabel:"24 Nov 2026" },
+  { test:"6 Mar 2027", testIso:"2027-03-06", reg:"2027-02-19", late:"2027-02-23", regLabel:"19 Feb 2027", lateLabel:"23 Feb 2027" },
+  { test:"1 May 2027", testIso:"2027-05-01", reg:"2027-04-16", late:"2027-04-20", regLabel:"16 Apr 2027", lateLabel:"20 Apr 2027" },
+  { test:"5 Jun 2027", testIso:"2027-06-05", reg:"2027-05-21", late:"2027-05-25", regLabel:"21 May 2027", lateLabel:"25 May 2027" },
+];
+// The 7 Nov 2026 test is listed separately: regular registration closed 23 Oct and late registration closed 27 Oct.
+const SAT_NOV = { test:"7 Nov 2026", testIso:"2026-11-07", reg:"2026-10-23", late:"2026-10-27", regLabel:"23 Oct 2026", lateLabel:"27 Oct 2026" };
+const SAT_ALL = [SAT_NOV].concat(SAT_DATES);
+
+function satStatus(d){
+  const toReg = daysUntil(d.reg), toLate = daysUntil(d.late);
+  if (toReg >= 0) return { cls:"", text: toReg === 0 ? "register today" : "register in " + toReg + " day" + (toReg === 1 ? "" : "s") };
+  if (toLate >= 0) return { cls:"", text:"late registration only (extra fees)" };
+  return { cls:"past", text:"closed" };
+}
+
+(function renderSat(){
+  const gb = document.getElementById("satGroupBody");
+  gb.innerHTML = Object.keys(SAT_SNAP).map(id => {
+    const s = SAT_SNAP[id];
+    return `<tr><td><b>${GROUP_LABELS[id]}</b></td><td>${s.n} of ${s.of}</td><td>${s.text}</td></tr>`;
+  }).join("");
+  const db = document.getElementById("satDatesBody");
+  db.innerHTML = SAT_ALL.map(d => {
+    const st = satStatus(d);
+    return `<tr><td><b>${d.test}</b></td><td>${d.regLabel}</td><td>${d.lateLabel}</td><td><span class="days-tag ${st.cls}">${st.text}</span></td></tr>`;
+  }).join("");
+  const sel = document.getElementById("satPlanDate");
+  SAT_DATES.forEach(d => { const o = document.createElement("option"); o.value = d.testIso; o.textContent = d.test; sel.appendChild(o); });
+  sel.addEventListener("change", () => {
+    const d = SAT_DATES.find(x => x.testIso === sel.value);
+    const info = document.getElementById("satPlanInfo");
+    if (!d) { info.textContent = ""; return; }
+    const st = satStatus(d);
+    info.textContent = "Register by " + d.regLabel + " (late registration until " + d.lateLabel + "). Status: " + st.text + ".";
+  });
+})();
+
+(function renderRound1(){
+  const rows = [
+    ["15 Aug 2026 onward", "Round 1 Portfolio opens. Each university and program sets its own window", "2026-08-15", true],
+    ["Varies by program", "Check every program: some windows have closed, some open in Dec–Feb (example: 4 Jan–4 Feb 2027)", null, false],
+    ["10–11 Mar 2027", "Round 1 results and confirmation", "2027-03-10", false],
+  ];
+  document.getElementById("r1TimelineBody").innerHTML = rows.map(r =>
+    `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2] ? daysTag(r[2], r[3]) : "—"}</td></tr>`).join("");
+  document.getElementById("r1GroupBody").innerHTML = Object.keys(R1_SNAP).map(id =>
+    `<tr><td><b>${GROUP_LABELS[id]}</b></td><td>${R1_SNAP[id]}</td></tr>`).join("");
+  const tr = document.getElementById("r1Tracker");
+  let html = "";
+  for (let i = 1; i <= 3; i++) {
+    html += `<div class="card" style="background:#FBF9F4;">
+      <h3 style="font-size:14px;">Program ${i}</h3>
+      <div class="grid2">
+        <div><label class="field-label">Program and university</label><input type="text"></div>
+        <div><label class="field-label">Round 1 track name or number</label><input type="text" placeholder="e.g., 1.2"></div>
+        <div><label class="field-label">Window opens</label><input type="text"></div>
+        <div><label class="field-label">Window closes</label><input type="text"></div>
+        <div><label class="field-label">Documents needed</label><input type="text"></div>
+        <div><label class="field-label">Scores needed (SAT, English, TGAT, other)</label><input type="text"></div>
+        <div><label class="field-label">Interview date</label><input type="text"></div>
+        <div><label class="field-label">Result date</label><input type="text"></div>
+      </div></div>`;
+  }
+  tr.innerHTML = html;
+  const checks = document.querySelectorAll(".r1-check");
+  checks.forEach(c => c.addEventListener("change", () => {
+    const n = Array.from(checks).filter(x => x.checked).length;
+    document.getElementById("r1CheckCount").textContent = n + " / " + checks.length + " done";
+  }));
+  const decs = document.querySelectorAll(".r1-dec");
+  function updateDecision(){
+    const n = Array.from(decs).filter(x => x.checked).length;
+    const el = document.getElementById("r1Result");
+    if (n === 0 && !Array.from(decs).some(x => x.checked)) { el.textContent = "Tick the boxes above"; return; }
+    if (n === 4) el.textContent = "Strong signal. Round 1 is worth a serious try";
+    else if (n >= 2) el.textContent = "Mixed signal. Try Round 1 and keep Round 3 (7–11 May) as your backup";
+    else el.textContent = "Weak signal. Build your portfolio and prepare TGAT/TPAT/A-Level for Round 3";
+  }
+  decs.forEach(c => c.addEventListener("change", updateDecision));
+})();
+
+// ================= FACT CARDS =================
+const factWrap = document.getElementById("factCards");
+FACT_GROUPS.forEach(g => {
+  const div = document.createElement("div");
+  div.className = "fact-card";
+  div.id = "ref-" + g.id;
+  const li = arr => arr.map(t => `<li>${t}</li>`).join("");
+  const src = g.sources.map(s => `<a href="${s[1]}" target="_blank">${s[0]}</a>`).join(" · ");
+  div.innerHTML = `
+    <div class="fc-head">
+      <span class="fc-name" style="background:${g.color}; display:inline-flex; align-items:center; gap:7px;">${iconSvg(GROUP_ICONS[g.id],14)} ${g.name}</span>
+      <span class="fc-riasec" style="border-color:${g.color}; color:${g.color}">RIASEC match: ${g.riasec}</span>
+    </div>
+    <div class="fc-unis">${g.unis}</div>
+    <div class="fc-cols">
+      <div class="fc-col"><h4 style="color:${g.color}">Example Careers</h4><ul>${li(g.careers)}</ul></div>
+      <div class="fc-col"><h4 style="color:${g.color}">Future Trend</h4><ul>${li(g.trend)}</ul></div>
+      <div class="fc-col"><h4 style="color:${g.color}">Competition</h4><ul>${li(g.competition)}</ul></div>
+    </div>
+    ${g.admission ? `<div class="fc-admission">
+      <h4 style="color:${g.color}">Admission Requirements Snapshot</h4>
+      <p><b>Common across universities:</b> ${g.admission.common}</p>
+      <p><b>Key differences:</b> ${g.admission.diff}</p>
+      <p><b>SAT snapshot:</b> ${SAT_SNAP[g.id].n} of ${SAT_SNAP[g.id].of} programs list SAT. ${SAT_SNAP[g.id].text}</p>
+      <p><b>Round 1 portfolio:</b> ${R1_SNAP[g.id]}</p>
+      <div class="fc-admission-note">Based on the English/International-program track we researched (2026 TCAS69 Requirements Report). Thai programs use GPAX plus TGAT/TPAT/A-Level; weights and minimums differ by program. Always confirm exact numbers on mytcas.com or the program page before deciding.</div>
+    </div>` : ''}
+    <div class="fc-sources">Sources: ${src}</div>`;
+  factWrap.appendChild(div);
+});
+// ================= MYTHS & REALITY CHECKS =================
+const mythsWrap = document.getElementById("mythsList");
+MYTHS.forEach(m => {
+  const div = document.createElement("div");
+  div.className = "myth-row";
+  div.innerHTML = `
+    <span class="myth-label myth">MYTH</span><span class="myth-text">${m.myth}</span>
+    <div class="reality-line"><span class="myth-label reality">REALITY</span><span class="myth-text">${m.reality}</span></div>`;
+  mythsWrap.appendChild(div);
+});
+
+// ================= MAPPING TABLE =================
+const mapBody = document.getElementById("mapTableBody");
+MAPPING.forEach(m => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td><b>${m[0]}</b></td><td><a href="#" data-id="${m[3]}" class="reflink">${m[1]}</a></td><td>${m[2]}</td>`;
+  mapBody.appendChild(tr);
+});
+mapBody.querySelectorAll(".reflink").forEach(a => {
+  a.addEventListener("click", (e) => {
+    e.preventDefault();
+    const card = document.getElementById("ref-" + e.currentTarget.dataset.id);
+    if (card) card.scrollIntoView({ behavior:"smooth", block:"start" });
+  });
+});
+// ================= STEP DOTS / PROGRESS =================
+const stepDotsWrap = document.getElementById("stepDots");
+STEP_META.forEach((m, i) => {
+  const dot = document.createElement("div");
+  dot.className = "step-dot";
+  dot.dataset.i = i;
+  dot.innerHTML = `<div class="circ" style="background:${m.color}">${m.letter}</div><span class="lbl">${m.label}</span>`;
+  dot.addEventListener("click", () => goToStep(i));
+  stepDotsWrap.appendChild(dot);
+});
+
+const PAGE_IDS = STEP_META.map(m => m.id);
+let currentStep = 0; // 0-5 while in a numbered step; special views handled separately
+let currentView = "welcome"; // 'welcome' | number | 'references' | 'complete'
+let lastStepBeforeRef = 0;
+
+function allPages(){ return document.querySelectorAll(".page"); }
+
+function renderView(){
+  allPages().forEach(p => p.classList.remove("active"));
+  const progressWrap = document.getElementById("progressWrap");
+  const stepFooter = document.getElementById("stepFooter");
+
+  if (currentView === "welcome") {
+    document.getElementById("page-welcome").classList.add("active");
+    progressWrap.style.display = "none";
+    stepFooter.style.display = "none";
+  } else if (currentView === "complete") {
+    document.getElementById("page-complete").classList.add("active");
+    progressWrap.style.display = "none";
+    stepFooter.style.display = "none";
+  } else if (currentView === "references") {
+    document.getElementById("page-references").classList.add("active");
+    progressWrap.style.display = "none";
+    stepFooter.style.display = "none";
+    window.scrollTo(0,0);
+  } else {
+    const i = currentView;
+    document.getElementById("page-" + PAGE_IDS[i]).classList.add("active");
+    progressWrap.style.display = "block";
+    stepFooter.style.display = "flex";
+    updateProgressUI(i);
+    window.scrollTo(0,0);
+  }
+}
+
+function updateProgressUI(i){
+  const total = STEP_META.length;
+  const pct = Math.round(((i+1)/total)*100);
+  document.getElementById("progressText").textContent = `Step ${i+1} of ${total}: ${STEP_META[i].label}`;
+  document.getElementById("progressPct").textContent = pct + "%";
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("stepCount").textContent = `${i+1} / ${total}`;
+  document.querySelectorAll(".step-dot").forEach((d,idx) => {
+    d.classList.toggle("current", idx === i);
+    d.classList.toggle("done", idx < i);
+  });
+  document.getElementById("backBtn").disabled = false;
+  document.getElementById("nextBtn").textContent = (i === total-1) ? "Finish →" : "Next →";
+}
+
+function goToStep(i){
+  currentView = Math.max(0, Math.min(STEP_META.length-1, i));
+  currentStep = currentView;
+  renderView();
+}
+function nextStep(){
+  if (currentStep < STEP_META.length - 1) { goToStep(currentStep + 1); }
+  else { currentView = "complete"; renderView(); }
+}
+function prevStep(){
+  if (currentStep > 0) { goToStep(currentStep - 1); }
+  else { currentView = "welcome"; renderView(); }
+}
+function goToReferences(refId){
+  if (typeof currentView === "number") lastStepBeforeRef = currentView;
+  currentView = "references";
+  renderView();
+  if (refId) {
+    setTimeout(() => {
+      const card = document.getElementById("ref-" + refId);
+      if (card) card.scrollIntoView({ behavior:"smooth", block:"start" });
+    }, 50);
+  }
+}
+function leaveReferences(){
+  currentView = lastStepBeforeRef;
+  currentStep = lastStepBeforeRef;
+  renderView();
+}
+document.getElementById("refNavLink").addEventListener("click", (e) => {
+  e.preventDefault();
+  goToReferences(null);
+});
+
+function printWorkbook(){
+  window.print();
+}
+
+renderView();
+</script>
+</body>
+</html>
